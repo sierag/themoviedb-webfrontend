@@ -1,0 +1,68 @@
+body { padding:0px;margin:0px;font-family: 'Lato', sans-serif;background-color: black;color:white}
+.title { font-size: 2em;line-height: 1.3em; }
+.year { font-size: 0.7em;opacity: 0.5 }
+.movie_content { position:absolute;background-color: black;margin-top: 20%; border-radius: 10px;opacity:.8;width:500px;padding:2%;min-height:300px;color:white;box-shadow: 0px 0px 40px #ccc}
+.movie_poster {margin:5% 5% 10% 10%; float:right;box-shadow: 0px 0px 1px white;border:1px solid black}
+.clear { clear:both}
+.movie_rating_stars { font-size: 0.8em}
+.length { float:right;opacity: 0.7}
+.empty { opacity: 0.7}
+.movie_plot { font-size: 0.9em}
+#bg { display:none;position:fixed; top:-50%; left:-50%; width:200%; height:200%}
+#bg img { position:absolute; top:0; left:0; right:0; bottom:0; margin:auto; min-width:50%; min-height:50%}
+
+/* FRONTPAGE */
+#container { margin-top:50px}
+.item { width:342px;overflow:hidden;opacity: 0.8;margin:5px}
+.item .title { width:100%;text-align:center; font-size: 1em;background-color: black;float:left;position:absolute;margin-top:165px;height:30px}
+.item a { text-decoration: none}
+.item a .title { opacity: 0.6;color:white;line-height: 30px}
+.item a:hover .title, .item a:focus .title { opacity: 1}
+.item:hover, .item:focus { opacity: 1}
+.footernav {
+transition: 300ms;
+-moz-transition: 300ms; /* Firefox 4 */
+-webkit-transition: 300ms; /* Safari and Chrome */
+-o-transition: 300ms; /* Opera */
+
+
+color:#999;font-size: 1.5em;background-color: black;position:absolute;bottom:0px;width:100%;height:40px;opacity:0.5;text-align: center;line-height: 40px;box-shadow: 0px 0px 1px white}
+.footernav:hover {opacity:1}
+.footernav i {padding:0px 20px 0px 20px;}
+.footernav a {color:white;text-decoration: none}
+
+/* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Remove border and change up box shadow for more contrast */
+    .navbar .navbar-inner {
+      border: 0;
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+         -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+              box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+
+    /* Downsize the brand/project name a bit */
+    .navbar .brand {
+      padding: 14px 20px 16px 30px; /* Increase vertical padding to match navbar links */
+      font-size: 15px;
+      font-weight: bold;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+    }
+
+    /* Navbar links: increase padding for taller navbar */
+    .navbar .nav > li > a {
+      padding: 15px 20px;
+    }
+
+    /* Offset the responsive button for proper vertical alignment */
+    .navbar .btn-navbar {
+      
+    }
+    
+    .navbar #search {
+	    margin: 10px 10px
+	    
+    }
+
+

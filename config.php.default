@@ -1,0 +1,10 @@
+<?
+	// Database Config
+	define("DB_HOST", 'localhost');
+	define("DB_USERNAME",'');
+	define("DB_PASSWORD",'');
+	define("DB_DATABASE", '');
+	
+	// TMDB API KEY
+	define("TMDB_APIKEY",	'');
+?>
