@@ -4,7 +4,6 @@ require_once('db.php');
 require_once('functions.php');
 require_once('header.php');
 
-
 if(isset($_GET["url"])){
 	$id = $_GET["url"];
 	$query = "SELECT * from movies where url = '$id'";

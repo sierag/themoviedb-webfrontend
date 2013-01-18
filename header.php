@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<title>Sierag Movie Archive</title>
+<title><?=SITE_TITLE?></title>
 <link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
 <link href='css/style.css' rel='stylesheet' type='text/css'>
@@ -38,16 +38,6 @@
                     <li><a href="?sort=rating">My Rating</a></li>
                   </ul>
                 </li>
-                <? if(!isloggedin()){
-                require_once('TMDb-PHP-API/TMDb.php');
-				$apikey = 'a764caade490450dedcd4918e211b738';
-				$tmdb = new TMDb($apikey);
-
-	                $token = $tmdb->getAuthToken();
-	                ?><li><a href="<?=$token['Authentication-Callback']?>?redirect_to=http://www.sierag.nl/movie/gensession.php">login</a></li>
-	                <?
-		        }?>
-		        
               </ul>
             </div><!--/.nav-collapse -->
                 <div class="pull-right">

@@ -7,4 +7,7 @@
 	
 	// TMDB API KEY
 	define("TMDB_APIKEY",	'');
+	
+	//SITE PROPERTIES
+	define("SITE_TITLE","My Movie DB, my watched and rated movies");
 ?>
