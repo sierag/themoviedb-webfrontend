@@ -8,13 +8,15 @@ http://www.sierag.nl/movie/
 
 FEATURES
 ======================
-- Bootstrap
-- Keyboard navigation
-- Lazy loading
-- Mano
+- Responsive Wedesign
+- Slide through your movies with keyboard navigation
+- Loading only the images when needed (by Lazy loading) 
+- Displaying all movies in one screen (Masonry)
 - Searching movies in local database and on themoviedb.org
-- Import all movies from 
-
+- Import all movies from themoviedb.org that you have rated allready
+- Rate a movie and it also will be send to themoviedb.org
+- Using the APIv3 from themoviedb.org in combination of this fantasic TMDb-PHP-API wrapper 
+- Easy use of known javascript and CSS frameworks as Bootstrap, jQuery.
 
 INSTALLATION
 ======================
@@ -34,10 +36,13 @@ Import db.sql into your database and make sure the table name is movies
 
 SCREENSHOTS
 ======================
+![Front page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen1.png)
+![Movie page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen2.png)
 
 
 Resources Used
 ===============
+* [TMDb-PHP-API](https://github.com/glamorous/TMDb-PHP-API)
 * [Bootstrap](http://getbootstrap.com)
 * [FontAwesome](http://fortawesome.github.com/Font-Awesome/)
 * [Masonry](http://masonry.desandro.com/)
