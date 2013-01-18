@@ -36,8 +36,10 @@ Import db.sql into your database and make sure the table name is movies
 
 SCREENSHOTS
 ======================
-![Front page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen1.png)
-![Movie page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen2.png)
+![Front page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen1.jpg)
+![Movie page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen2.jpg)
+![Front page iPad](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/ipad1.jpg)
+![Movie page iPad](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/ipad2.jpg)
 
 
 Resources Used
