@@ -3,20 +3,24 @@ themoviedb-webfrontend
 
 Awesome way to manage your rated movies, search, watchlist and more.
 
-
-INSTALL
-
-git clone https://github.com/sierag/themoviedb-webfrontend.git in your webroot
-
-mv themoviedb-webfrontend movie
-
-cd movie
-
-mv config.php.default config.php
-
-vi config.php and add the right values
-
-import db.sql into your database and make sure the table name is movies
+DEMO
+======================
+http://www.sierag.nl/movie/
 
 
-And there you go
+INSTALLATION
+======================
+
+Download to, or Clone on the location you prefer. 
+```
+# git clone https://github.com/sierag/themoviedb-webfrontend.git
+```
+Than you will need to make some easy changes to make this work.
+```
+# mv themoviedb-webfrontend movie
+# mv movie/config.php.default movie/config.php
+# vi movie/config.php and add the right values
+```
+Last step is to create the tabel into your database to make it work.
+Import db.sql into your database and make sure the table name is movies
+
