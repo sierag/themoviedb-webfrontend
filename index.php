@@ -230,7 +230,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	<div class="item">
 		<a href="<?=$r["url"]?>">
 			<div class="title"><?=$r["title"]?></div>
-			<img src="grey.gif" data-original="<?=$r["backdrop_path_w342"]?>" width="342px" height="192px" alt="" />
+			<img src="img/grey.gif" data-original="<?=$r["backdrop_path_w342"]?>" width="342px" height="192px" alt="" />
 		</a>
 	</div>			
 <?
