@@ -15,6 +15,7 @@ FEATURES
 - Searching movies in local database and on themoviedb.org
 - Import all movies from themoviedb.org that you have rated allready
 - Rate a movie and it also will be send to themoviedb.org
+- Statistics page; Plotting charts from your own rated movies
 - Using the APIv3 from themoviedb.org in combination of this fantasic TMDb-PHP-API wrapper 
 - Easy use of known javascript and CSS frameworks as Bootstrap, jQuery.
 
@@ -50,3 +51,4 @@ Resources Used
 * [FontAwesome](http://fortawesome.github.com/Font-Awesome/)
 * [Masonry](http://masonry.desandro.com/)
 * [LazyLoading](http://www.appelsiini.net/projects/lazyload)
+* [Flot](https://github.com/flot/flot)
