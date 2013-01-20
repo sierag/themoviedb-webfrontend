@@ -10,4 +10,5 @@
 	
 	//SITE PROPERTIES
 	define("SITE_TITLE","My Movie DB, my watched and rated movies");
+	define("SUBDIR","/movie/");
 ?>

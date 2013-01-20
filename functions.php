@@ -43,9 +43,34 @@ function addeditgenre($tmdb, $my_tmdb){
 	mysql_query($query) or die('Query failed: ' . mysql_error());
 }
 
+function updateMovieGenres($genres,$movie_tmdb_id) {
+	$i = count($genres);
+	if($i>0) {		
+		$query = "DELETE from genres_movie where movie_tmdb_id = ".$movie_tmdb_id."";	
+		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		
+		// INSERT
+		$query = "INSERT INTO `genres_movie` (`genre_tmdb_id` , `movie_tmdb_id`) VALUES (";
+		$i = count($genres);
+		$y = 0;
+		foreach($genres as $g) {
+			$query .= "'".$g['id']."', '".$movie_tmdb_id."'";	
+			$y++;
+			if($y<$i){
+				$query .= "), (";			
+			}
+		}
+		$query .= ");";		
+		return mysql_query($query) or die('Query failed: ' . mysql_error());
+	}
+}
+
 function addedit($tmdb, $my_tmdb, $list) {
 	
 	$movie = $tmdb->getMovie($my_tmdb['id']);
+	
+	updateMovieGenres($movie["genres"], $my_tmdb['id']);
+	
 	$my_tmdb['poster_path_w185'] = $tmdb->getImageUrl($my_tmdb['poster_path'], 'poster', "w185");
 	$my_tmdb['poster_path_w342'] = $tmdb->getImageUrl($my_tmdb['poster_path'], 'poster', "w342");
 	$my_tmdb['poster_path_original'] = $tmdb->getImageUrl($my_tmdb['poster_path'], 'poster', "original");

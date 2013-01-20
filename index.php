@@ -81,7 +81,7 @@ if(isset($_GET["url"])){
 			$randresult = mysql_query($rand) or die('Query failed: ' . mysql_error());
 			while ($rand = mysql_fetch_array($randresult, MYSQL_ASSOC)) { 
 			?>
-			<a class="overview" href="/movie"><i class="icon-th"></i></a>
+			<a class="overview" href="<?=SUBDIR?>"><i class="icon-th"></i></a>
 			<a class="rand" href="<?=$rand['url']?>"><i class="icon-refresh"></i></a>
 			<? } ?>
 			<a class="next" href="<?=$nextid?>?from=right"><i class="icon-step-forward"></i></a>

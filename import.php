@@ -28,7 +28,16 @@ $tmdb = new TMDb(TMDB_APIKEY);
 				$_SESSION['tmdb_language'] = $account['iso_3166_1'];
 			}
 			if(isset($_GET["action"])) {
-				if($_GET["action"]=='importall') { 		
+				if($_GET["action"]=='updategenres') { 		
+					$query = "SELECT * from movies";	
+					$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+					ob_flush();flush();
+					while ($row = mysql_fetch_assoc($result)) {
+						$movie = $tmdb->getMovie($row['tmdb_id']);
+						updateMovieGenres($movie["genres"],$row['tmdb_id']);
+						echo "movie " . $row['title'] . " has " . count($movie["genres"]) . " genres updated<br>";
+					} 
+				} elseif($_GET["action"]=='importall') { 		
 					ob_end_flush();
 					$movies = $tmdb->getMoviesByGenre('28');
 					echo "<pre>";
@@ -80,6 +89,7 @@ $tmdb = new TMDb(TMDB_APIKEY);
 			} else { 
 					?>
 					<ul>
+						<li><a href="?action=updategenres"  class="btn">updategenres</a></li>
 						<li><a href="?action=importratings"  class="btn">import rated movies</a></li>
 						<li><a href="?action=sanatizeall" class="btn">sanatize urls</a></li>
 						<li><a href="?action=importall" class="btn">import all movies per genre</a></li>

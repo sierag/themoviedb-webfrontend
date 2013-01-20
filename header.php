@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
 <title><?=SITE_TITLE?></title>
-<link href="css/bootstrap.min.css" rel="stylesheet" media="screen">
+<link href="<?=SUBDIR?>css/bootstrap.min.css" rel="stylesheet" media="screen">
 <link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
-<link href='css/style.css' rel='stylesheet' type='text/css'>
-<link href='css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+<link href='<?=SUBDIR?>css/font-awesome.min.css' rel='stylesheet' type='text/css'>
+<link href='<?=SUBDIR?>css/style.css' rel='stylesheet' type='text/css'>
 
 </head>
 <body>
@@ -19,25 +19,24 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="/movie">My Movie DB</a>
-            <? if(!isset($_GET["url"])){ ?>
-
+            <a class="brand" href="<?=SUBDIR?>">My Movie DB</a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">
-	              <li class="active"><a href="/movie">Rated</a></li>
-	        <!--  <li><a href="/movie/watchlist">On watchlist</a></li> -->
-              
-                <!-- Read about Bootstrap dropdowns at http://twitter.github.com/bootstrap/javascript.html#dropdowns -->
+	              <li <? if(SUBDIR . "index.php" == $_SERVER['SCRIPT_NAME']) { ?>class="active"<? } ?>><a href="<?=SUBDIR?>">Rated</a></li>
+	              <li <? if(SUBDIR . "stats.php" == $_SERVER['SCRIPT_NAME']) { ?>class="active"<? } ?>><a href="<?=SUBDIR?>stats.php">Stats</a></li>
+            	
+		<? if(!isset($_GET["url"])){ ?>
                 <li class="dropdown">
                   <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort<b class="caret"></b></a>
                   <ul class="dropdown-menu">
-                    <li><a href="?sort=release_date" class="active">Release Date</a></li>
-                    <li><a href="?sort=title">Title</a></li>
-                    <li><a href="?sort=runtime">Runtime</a></li>
-                    <li><a href="?sort=rating">My Rating</a></li>
+                    <li><a href="<?=SUBDIR?>?sort=release_date" class="active">Release Date</a></li>
+                    <li><a href="<?=SUBDIR?>?sort=title">Title</a></li>
+                    <li><a href="<?=SUBDIR?>?sort=runtime">Runtime</a></li>
+                    <li><a href="<?=SUBDIR?>?sort=rating">My Rating</a></li>
                   </ul>
                 </li>
+            	<? } ?>
               </ul>
             </div><!--/.nav-collapse -->
                 <div class="pull-right">
@@ -46,6 +45,5 @@
                 	</button>
                 </div>
 
-            <? } ?>
           </div><!-- /.navbar-inner -->
         </div><!-- /.navbar -->

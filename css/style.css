@@ -12,7 +12,8 @@ body { padding:0px;margin:0px;font-family: 'Lato', sans-serif;background-color: 
 #bg img { position:absolute; top:0; left:0; right:0; bottom:0; margin:auto; min-width:50%; min-height:50%}
 
 /* FRONTPAGE */
-#container { margin-top:50px}
+#container, .container { margin-top:50px}
+.container { padding:3em;}
 .item { width:342px;overflow:hidden;opacity: 0.8;margin:5px}
 .item .title { width:100%;text-align:center; font-size: 1em;background-color: black;float:left;position:absolute;margin-top:165px;height:30px}
 .item a { text-decoration: none}
@@ -30,6 +31,15 @@ color:#999;font-size: 1.5em;background-color: black;position:absolute;bottom:0px
 .footernav:hover {opacity:1}
 .footernav i {padding:0px 20px 0px 20px;}
 .footernav a {color:white;text-decoration: none}
+
+/* STATS PAGE */
+div.graph {
+	width: 400px;
+	height: 300px;
+}
+h1 {margin-top:2em;}
+h1.amount {margin-top:10px;font-size:5em}
+h1.amount span {font-size: 0.24em;color:grey}
 
 /* CUSTOMIZE THE NAVBAR
     -------------------------------------------------- */
