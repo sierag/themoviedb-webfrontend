@@ -40,6 +40,7 @@ SCREENSHOTS
 ![Movie page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen2.jpg)
 ![Front page iPad](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/ipad1.jpg)
 ![Movie page iPad](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/ipad2.jpg)
+![Stats page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen3.jpg)
 
 
 Resources Used
