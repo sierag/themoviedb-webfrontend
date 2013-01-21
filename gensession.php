@@ -1,9 +1,9 @@
 <?php
- include('TMDb-PHP-API/TMDb.php');
- $apikey = 'a764caade490450dedcd4918e211b738';
+require_once('config.php');
+require_once('TMDb-PHP-API/TMDb.php');
 
  // Default English language
- $tmdb = new TMDb($apikey);
+ $tmdb = new TMDb(TMDB_APIKEY);
  $token = $_GET['request_token'];
  $session = $tmdb->getAuthSession($token);
 
