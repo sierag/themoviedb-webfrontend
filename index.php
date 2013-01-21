@@ -226,13 +226,14 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		die('no movies found');
 	} else {
 		while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
- ?>
+?>
 	<div class="item">
 		<a href="<?=$r["url"]?>">
-			<div class="title"><?=$r["title"]?></div>
+			<div class="title"><?=truncate($r["title"],20,' ','..')?> <span class="year" style='float:left'><?=substr($r["release_date"],0,4)?></span> <span style="float:right"><?=$r["rating"]/10?></span></div>
+			
 			<img src="img/grey.gif" data-original="<?=$r["backdrop_path_w342"]?>" width="342px" height="192px" alt="" />
 		</a>
-	</div>			
+	</div>
 <?
 		}
 	}

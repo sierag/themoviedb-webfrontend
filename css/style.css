@@ -1,6 +1,6 @@
 body { padding:0px;margin:0px;font-family: 'Lato', sans-serif;background-color: black;color:white}
 .title { font-size: 2em;line-height: 1.3em; }
-.year { font-size: 0.7em;opacity: 0.5 }
+.year { font-size: 0.8em;opacity: 0.5 }
 .movie_content { position:absolute;background-color: black;margin-top: 20%; border-radius: 10px;opacity:.8;width:500px;padding:2%;min-height:300px;color:white;box-shadow: 0px 0px 40px #ccc}
 .movie_poster {margin:5% 5% 10% 10%; float:right;box-shadow: 0px 0px 1px white;border:1px solid black}
 .clear { clear:both}
@@ -17,9 +17,14 @@ body { padding:0px;margin:0px;font-family: 'Lato', sans-serif;background-color: 
 .item { width:342px;overflow:hidden;opacity: 0.8;margin:5px}
 .item .title { width:100%;text-align:center; font-size: 1em;background-color: black;float:left;position:absolute;margin-top:165px;height:30px}
 .item a { text-decoration: none}
-.item a .title { opacity: 0.6;color:white;line-height: 30px}
-.item a:hover .title, .item a:focus .title { opacity: 1}
+.item a .title { transition: 100ms;
+-moz-transition: 100ms; /* Firefox 4 */
+-webkit-transition: 100ms; /* Safari and Chrome */
+-o-transition: 100ms; /* Opera */
+opacity: 0.6;color:white;line-height: 30px}
+.item a:hover .title, .item a:focus .title {line-height: 40px; height:40px;margin-top:155px;opacity: 1;font-size:1.3em;}
 .item:hover, .item:focus { opacity: 1}
+.item a .title span {padding:0px 5px 0px 5px;} 
 .footernav {
 transition: 300ms;
 -moz-transition: 300ms; /* Firefox 4 */
