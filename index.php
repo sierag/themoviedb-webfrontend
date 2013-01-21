@@ -220,32 +220,44 @@ $query = "SELECT * from movies WHERE rating > 10 order by ".$sort." ".$ascdesc .
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 ?>
-<div id="container">
-<?
-	if(mysql_num_rows($result)==0){
-		die('no movies found');
-	} else {
-		while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
-?>
-	<div class="item">
-		<a href="<?=$r["url"]?>">
-			<div class="title"><?=truncate($r["title"],20,' ','..')?> <span class="year" style='float:left'><?=substr($r["release_date"],0,4)?></span> <span style="float:right"><?=$r["rating"]/10?></span></div>
-			
-			<img src="img/grey.gif" data-original="<?=$r["backdrop_path_w342"]?>" width="342px" height="192px" alt="" />
-		</a>
-	</div>
-<?
+<div class="container">
+	<div class="row-fluid">
+	<?
+		if(mysql_num_rows($result)==0){
+			die('no movies found');
+		} else {
+			$i=2;
+			while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+				$i++;
+				if($i>2) {
+					 ?></div><div class="row-fluid"><?
+					 $i=0;
+				}
+	?>
+		<div class="item span4">
+			<a href="<?=$r["url"]?>">
+				<div class="title">
+					<?=truncate($r["title"],20,' ','..')?> 
+					<span class="year" style='float:left'>
+						<?=substr($r["release_date"],0,4)?>
+					</span> 
+					<span style="float:right">
+						<?=$r["rating"]/10?>
+					</span>
+				</div>
+				<img src="img/grey.gif" data-original="<?=$r["backdrop_path_w342"]?>" width="100%" alt="" />
+			</a>
+		</div>
+	<?
+			}
 		}
-	}
-?>
+	?>
+	</div>
 </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/jquery.masonry.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.lazyload.js"></script>
 <script src="js/jquery.infinitescroll.js"></script>
 <script src="js/functions.js"></script>
-
 <? } ?>
-
 <? require_once('footer.php'); ?>
