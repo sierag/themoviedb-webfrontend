@@ -99,7 +99,8 @@ $(function () {// Randomly Generated Data
 	{
 		series: {
 			pie: { 
-				show: true
+				show: true,
+		        innerRadius: 0.5,
 			}
 		},
 		grid: {
