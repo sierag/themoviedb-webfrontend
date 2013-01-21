@@ -8,7 +8,15 @@
 	// TMDB API KEY
 	define("TMDB_APIKEY",	'');
 	
-	//SITE PROPERTIES
+//SITE PROPERTIES
+	// Title of the site <title></title>
 	define("SITE_TITLE","My Movie DB, my watched and rated movies");
+
+	// If you wwould like to place it in another directory or place it on a standalone url use '/' or the subdir you preffer.
 	define("SUBDIR","/movie/");
+	
+	// If you place you own TRACKING ID here it automaticly will place it in the footer of the website
+	define("GOOGLE_TRACKING_ID",null);
+
+	
 ?>
