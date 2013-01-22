@@ -37,7 +37,7 @@ if(isloggedin()){
 	}
 } else {
 	
-	$query = "SELECT * from movies where title LIKE '%".$_GET['search_keyword']."%' AND rating > 10 LIMIT 25";	
+	$query = "SELECT * from movies where title LIKE '%".mysql_real_escape_string($_GET['search_keyword'])."%' AND rating > 10 LIMIT 25";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	
 	if(!mysql_num_rows($result)==0){
