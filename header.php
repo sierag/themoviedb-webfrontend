@@ -22,7 +22,7 @@
               <span class="icon-bar"></span>
               <span class="icon-bar"></span>
             </a>
-            <a class="brand" href="<?=SUBDIR?>">My Movie DB</a>
+            <a class="brand" href="<?=SUBDIR?>"><?=SITE_TITLE?></a>
             <!-- Responsive Navbar Part 2: Place all navbar contents you want collapsed withing .navbar-collapse.collapse. -->
             <div class="nav-collapse collapse">
               <ul class="nav">

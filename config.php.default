@@ -20,5 +20,5 @@
 
 // STATISTICS PAGE
 	// Show the amount of genres by the piechart
-	define(SHOW_AMOUNT_GENRES,"12");
+	define("SHOW_AMOUNT_GENRES","12");
 ?>
