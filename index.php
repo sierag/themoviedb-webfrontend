@@ -248,7 +248,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	?>
 		<div class="item span4">
 			<a href="<?=$r["url"]?>">
-				<img src="img/mymoviedb.jpg" data-original="<?=$r["backdrop_path_w342"]?>" alt="" />
+				<img src="img/mymoviedb.jpg" data-original="<?=$r["backdrop_path_w342"]?>" width="100%" alt="" />
 				<div class="title">
 					<?=truncate($r["title"],20,' ','..')?> 
 					<span class="year" style='float:left'>
