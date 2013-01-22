@@ -18,5 +18,7 @@
 	// If you place you own TRACKING ID here it automaticly will place it in the footer of the website
 	define("GOOGLE_TRACKING_ID",null);
 
-	
+// STATISTICS PAGE
+	// Show the amount of genres by the piechart
+	define(SHOW_AMOUNT_GENRES,"12");
 ?>

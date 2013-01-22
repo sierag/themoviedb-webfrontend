@@ -20,7 +20,7 @@ require_once('header.php');
 			echo "<div class='span3'><h1 class='amount'>". round($r['total'],2)."<br><span>Seen Movies</span></h1></div>";
 			?></div><div class="row-fluid"><?
 
-			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60)."<br><span>Hours spend watching movies</span></h1></div>";
+			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60)."<br><span>Hours spent watching movies</span></h1></div>";
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60)."<br><span>Days watched</span></h1></div>";				
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/7)."<br><span>Week(s) watched</span></h1></div>";
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/30)."<br><span>Month(s) watched</span></h1></div>";
@@ -33,25 +33,39 @@ require_once('header.php');
 			<h1>Genres balance</h1>
 			<?
 				
-				$query = "SELECT count(gm.genre_tmdb_id) as genrecount, gm.genre_tmdb_id as genre_tmdb_id, g.name as name FROM `genres_movie` as gm, genres as g, movies as m WHERE g.tmdb_id = gm.genre_tmdb_id AND g.tmdb_id = m.tmdb_id AND m.rating > 10 GROUP BY gm.genre_tmdb_id, g.name Order by genrecount desc";
+			$query = "SELECT g.name, count(*) AS genrecount FROM genres_movie gm INNER JOIN genres g ON g.tmdb_id = gm.genre_tmdb_id WHERE gm.movie_tmdb_id IN (
+	SELECT tmdb_id FROM movies WHERE rating > 10
+)
+GROUP BY gm.genre_tmdb_id ORDER BY genrecount desc";
 				
-				$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-				if(mysql_num_rows($result)==0){
-					echo 'no movies with genres found';
-				} 
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			if(mysql_num_rows($result)==0){
+				echo 'no movies with genres found';
+			} 
 			
-				$query = "SELECT count(gm.genre_tmdb_id) as totalcount FROM `genres_movie` as gm, genres as g, movies as m WHERE g.tmdb_id = gm.genre_tmdb_id AND g.tmdb_id = m.tmdb_id AND m.rating > 10";
-				
-				$totalresult = mysql_query($query) or die('Query failed: ' . mysql_error());
-				while ($t = mysql_fetch_array($totalresult, MYSQL_ASSOC)) {
-					$total = $t['totalcount'];
-				};
+			$res = array();
+			$total = 0;
+			$count = 0;
+			$show_amount_genres = SHOW_AMOUNT_GENRES;
+			while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+				if ($count < $show_amount_genres) {
+					$res[$count] = $r;
+					$count++;
+				} else {
+					$res[$count]['name'] = "Other";
+					if (isset($res[$count]['genrecount'])) {
+                                                $res[$count]['genrecount'] += $r['genrecount'];
+                                        } else {
+                                                $res[$count]['genrecount'] = $r['genrecount'];
+                                        }			
+				}
+				$total += $r['genrecount'];
+			}
 			?>
 			<script>
 				var data = [];	
 			<? 
-			$i =0;
-			while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) { 	
+			foreach ($res as $i=>$r) {
 			?>
 				data[<?=$i?>] = { label: "<?=$r["name"]?> <?=round(($r["genrecount"]/$total)*100,1)?>%", data: <?=($r["genrecount"]/$total)*100?> }
 			<? 
@@ -79,13 +93,12 @@ require_once('header.php');
 				$arr[$n['myyear']] = $n['myamount'];
 			}
 			?>
-			<h1>Movies watched in the past years</h1>
+			<h1>Movies seen by year it was made</h1>
 			<div id="placeholder" style="width:100%;height:300px;"></div>
 		</div>
 	</div>
 </div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
-<script src="js/jquery.masonry.min.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.lazyload.js"></script>
 <!--[if lte IE 8]><script language="javascript" type="text/javascript" src="../excanvas.min.js"></script><![endif]-->
@@ -100,11 +113,10 @@ $(function () {// Randomly Generated Data
 		series: {
 			pie: { 
 				show: true,
-		        innerRadius: 0.5,
 			}
 		},
 		grid: {
-	//		hoverable: true,
+			hoverable: true,
 			clickable: true
 		}
 	});
@@ -126,3 +138,4 @@ $(function () {// Randomly Generated Data
 });
 
 </script>
+<? require_once('footer.php'); ?>
