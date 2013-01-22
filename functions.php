@@ -24,45 +24,57 @@ function sanitize($string, $force_lowercase = true, $anal = false) {
         $clean;
 }
 
-function addeditgenre($tmdb, $my_tmdb){
-	$query = "SELECT id from genres where tmdb_id = ".$my_tmdb['id']."";	
-	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	if(mysql_num_rows($result)==0){
-		// INSERT
-		$query = "
-		INSERT INTO 
-		`genres` (
-		`tmdb_id`, 
-		`name` 
-		) VALUES (
-		'".$my_tmdb['id']."', 
-		'".$my_tmdb['name']."' 
-		)";
-		echo "new genre added ".$my_tmdb['name'];
+function addeditgenre($tmdb, $genre) {
+	if (mysql_num_rows(mysql_query(sprintf(
+			"SELECT id FROM genres WHERE tmdb_id = %d", $genre['id']
+		))) != 0) {
+			return;
 	}
-	mysql_query($query) or die('Query failed: ' . mysql_error());
+
+	$query = sprintf(
+		"INSERT INTO genres (" .
+		"    tmdb_id," .
+		"    name" .
+		") VALUES (".
+		"   '%d',".
+		"   '%s'".
+		")",
+		$genre['id'], mysql_real_escape_string($genre['name'])
+	);
+
+	mysql_query($query)
+		or die('Query failed: ' . mysql_error());
+
+	echo "new genre added {$genre['name']}\n";
 }
 
 function updateMovieGenres($genres,$movie_tmdb_id) {
-	$i = count($genres);
-	if($i>0) {		
-		$query = "DELETE from genres_movie where movie_tmdb_id = ".$movie_tmdb_id."";	
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		
-		// INSERT
-		$query = "INSERT INTO `genres_movie` (`genre_tmdb_id` , `movie_tmdb_id`) VALUES (";
-		$i = count($genres);
-		$y = 0;
-		foreach($genres as $g) {
-			$query .= "'".$g['id']."', '".$movie_tmdb_id."'";	
-			$y++;
-			if($y<$i){
-				$query .= "), (";			
-			}
-		}
-		$query .= ");";		
-		return mysql_query($query) or die('Query failed: ' . mysql_error());
-	}
+	$num_genre = count($genres);
+
+	if ($num_genre == 0)
+		return;
+
+	$query = sprintf("DELETE from genres_movie where movie_tmdb_id = %d", $movie_tmdb_id);
+
+	$result = mysql_query($query)
+		or die('Query failed: ' . mysql_error());
+
+	$rows = array();
+
+	foreach($genres as $genre)
+		$rows[] = "(".invtal($genre['id']).", ".intval($movie_tmdb_id).")";
+
+	$query = sprintf(
+		"INSERT INTO genres_movie (".
+		"    genre_tmdb_id,".
+		"    movie_tmdb_id,".
+		") VALUES %s", implode(",", $rows)
+	);
+
+	mysql_query($query)
+		or die('Query failed: ' . mysql_error());
+
+	return true;
 }
 
 function addedit($tmdb, $my_tmdb, $list) {
