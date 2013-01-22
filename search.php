@@ -7,7 +7,7 @@ require_once('TMDb-PHP-API/TMDb.php');
 
 if(isloggedin()){
 
-	$tmdb = new TMDb('a764caade490450dedcd4918e211b738');
+	$tmdb = new TMDb(TMDB_APIKEY);
 	$movies = $tmdb->searchMovie($_GET['search_keyword']);
 	
 	if(count($movies['results'])>0) {
