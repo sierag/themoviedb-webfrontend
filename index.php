@@ -37,13 +37,13 @@ if(isset($_GET["url"])){
 						<? } else { ?>
 							<div class="movie_rating">
 								<span class="movie_rating_value"><?=($r["rating"]/10)?></span>
-								<span class="movie_rating_stars"><? for($i=0;$i<(round($r["rating"]/10));$i++){?><i class="icon-star"></i><? } ?><? for($i=0;$i<(10-(round($r["rating"]/10)));$i++){?><i class="icon-star-empty"></i><? } ?></span>
+								<span class="movie_rating_stars"><? for($i=0;$i<(round($r["rating"]/10));$i++){?><i class="icon-star gold"></i><? } ?><? for($i=0;$i<(10-(round($r["rating"]/10)));$i++){?><i class="icon-star-empty"></i><? } ?></span>
 								(Yours)
 							</div>
 						<? } ?>
 						<div class="movie_rating">
 							<span class="movie_rating_value"><?=$r["vote_average"]?></span>
-							<span class="movie_rating_stars"><? for($i=0;$i<(round($r["vote_average"]));$i++){?><i class="icon-star"></i><? } ?><? for($i=0;$i<(10-(round($r["vote_average"])));$i++){?><i class="icon-star-empty"></i><? } ?></span>
+							<span class="movie_rating_stars"><? for($i=0;$i<(round($r["vote_average"]));$i++){?><i class="icon-star gold"></i><? } ?><? for($i=0;$i<(10-(round($r["vote_average"])));$i++){?><i class="icon-star-empty"></i><? } ?></span>
 							(Average)
 							</div>
 						<div class="trailer_complement">

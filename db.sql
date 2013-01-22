@@ -30,7 +30,7 @@ CREATE TABLE IF NOT EXISTS `movies` (
   `rating` int(11) NOT NULL,
   `title` text NOT NULL,
   `url` varchar(255) NOT NULL,
-  `vote_average` int(11) NOT NULL,
+  `vote_average` float NOT NULL,
   `vote_count` int(11) NOT NULL,
   `onwatchlist` enum('0','1') NOT NULL,
   `insertion_date` timestamp NOT NULL default '0000-00-00 00:00:00',
