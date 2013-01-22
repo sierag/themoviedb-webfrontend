@@ -37,15 +37,27 @@ if(isset($_GET["url"])){
 						<? } else { ?>
 							<div class="movie_rating">
 								<span class="movie_rating_value"><?=($r["rating"]/10)?></span>
-								<span class="movie_rating_stars"><? for($i=0;$i<(floor($r["rating"]/10));$i++){?><i class="icon-star"></i><? } ?><? if(substr($r["rating"],1)==5){ ?><i class="icon-star-half"></i><? } ?><? for($i=0;$i<(10-($r["rating"]/10));$i++){?><i class="icon-star-empty"></i><? } ?></span>
+								<span class="movie_rating_stars"><? for($i=0;$i<(round($r["rating"]/10));$i++){?><i class="icon-star"></i><? } ?><? for($i=0;$i<(10-(round($r["rating"]/10)));$i++){?><i class="icon-star-empty"></i><? } ?></span>
+								(Yours)
 							</div>
 						<? } ?>
+						<div class="movie_rating">
+							<span class="movie_rating_value"><?=$r["vote_average"]?></span>
+							<span class="movie_rating_stars"><? for($i=0;$i<(round($r["vote_average"]));$i++){?><i class="icon-star"></i><? } ?><? for($i=0;$i<(10-(round($r["vote_average"])));$i++){?><i class="icon-star-empty"></i><? } ?></span>
+							(Average)
+							</div>
 						<div class="trailer_complement">
 							<div class="movie_plot">
 								<p><?=$r["overview"]?></p>
 							</div>
 						</div>
 						<div class="length"><?=timer($r["runtime"])?></div>
+						<div class="clear"></div>
+						<div class="length">
+							External info:&nbsp;&nbsp;
+							<a class="fakebutton tmdb" href="http://www.themoviedb.org/movie/<?=$r["tmdb_id"]?>">TMBd</a> |
+							<a class="fakebutton imdb" href="http://www.imdb.com/title/<?=$r["tmdb_id"]?>/">IMBd</a>
+						</div>
 						<div class="clear"></div>
 					</div>
 			<?

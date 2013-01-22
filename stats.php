@@ -22,8 +22,8 @@ require_once('header.php');
 
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60)."<br><span>Hours spent watching movies</span></h1></div>";
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60)."<br><span>Days watched</span></h1></div>";				
-			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/7)."<br><span>Week(s) watched</span></h1></div>";
-			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/30)."<br><span>Month(s) watched</span></h1></div>";
+			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/7,2)."<br><span>Week(s) watched</span></h1></div>";
+			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/30,2)."<br><span>Month(s) watched</span></h1></div>";
 		};
 	}
 	?>
@@ -93,7 +93,7 @@ GROUP BY gm.genre_tmdb_id ORDER BY genrecount desc";
 				$arr[$n['myyear']] = $n['myamount'];
 			}
 			?>
-			<h1>Movies seen by year it was made</h1>
+			<h1>Movies seen by year it was released</h1>
 			<div id="placeholder" style="width:100%;height:300px;"></div>
 		</div>
 	</div>
