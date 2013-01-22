@@ -1,4 +1,6 @@
-<? if( GOOGLE_TRACKING_ID<>"" ) { ?>
+<?php
+	if(GOOGLE_TRACKING_ID) {
+?>
 <script type="text/javascript">
   var _gaq = _gaq || [];
   _gaq.push(['_setAccount', '<?=GOOGLE_TRACKING_ID?>']);

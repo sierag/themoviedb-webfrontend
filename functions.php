@@ -62,12 +62,12 @@ function updateMovieGenres($genres,$movie_tmdb_id) {
 	$rows = array();
 
 	foreach($genres as $genre)
-		$rows[] = "(".invtal($genre['id']).", ".intval($movie_tmdb_id).")";
+		$rows[] = "(".intval($genre['id']).", ".intval($movie_tmdb_id).")";
 
 	$query = sprintf(
 		"INSERT INTO genres_movie (".
 		"    genre_tmdb_id,".
-		"    movie_tmdb_id,".
+		"    movie_tmdb_id".
 		") VALUES %s", implode(",", $rows)
 	);
 
