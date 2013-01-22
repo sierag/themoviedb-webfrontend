@@ -55,8 +55,8 @@ if(isset($_GET["url"])){
 						<div class="clear"></div>
 						<div class="length">
 							External info:&nbsp;&nbsp;
-							<a class="fakebutton tmdb" href="http://www.themoviedb.org/movie/<?=$r["tmdb_id"]?>">TMBd</a> |
-							<a class="fakebutton imdb" href="http://www.imdb.com/title/<?=$r["tmdb_id"]?>/">IMBd</a>
+							<a class="fakebutton tmdb" href="http://www.themoviedb.org/movie/<?=$r["tmdb_id"]?>">TMDb</a> |
+							<a class="fakebutton imdb" href="http://www.imdb.com/title/<?=$r["tmdb_id"]?>/">IMDb</a>
 						</div>
 						<div class="clear"></div>
 					</div>
