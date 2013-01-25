@@ -23,7 +23,6 @@ FEATURES
 
 INSTALLATION
 ======================
-
 Download to, or Clone on the location you prefer. 
 ```
 # git clone https://github.com/sierag/themoviedb-webfrontend.git
