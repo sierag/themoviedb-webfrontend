@@ -2,7 +2,7 @@ $(document).ready(function () {
 
 
 	$("img").lazyload({
-		threshold: 1000,
+		threshold: 500,
 		effect: "fadeIn"
 	});
 	
