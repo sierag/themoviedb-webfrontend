@@ -17,7 +17,7 @@ $tmdb = new TMDb(TMDB_APIKEY);
 <?	
 	if(!isset($_SESSION) || empty($_SESSION['tmdb_session_id'])){
 		$token = $tmdb->getAuthToken();
-		?><a href="<?=$token['Authentication-Callback']?>?redirect_to=http://<?=$_SERVER["SERVER_NAME"]?><?=SUBDIR?>gensession.php" class="btn" target="_blank">request token</a><?
+		?><a href="<?=$token['Authentication-Callback']?>?redirect_to=http://<?=$_SERVER["SERVER_NAME"]?><?=SUBDIR?>gensession.php" class="btn">request token</a><?
 	} else {
 
 			if(empty($_SESSION['tmdb_id'])){
