@@ -18,7 +18,14 @@
 	// If you place you own TRACKING ID here it automaticly will place it in the footer of the website
 	define("GOOGLE_TRACKING_ID",null);
 
-// STATISTICS PAGE
-	// Show the amount of genres by the piechart
-	define("SHOW_AMOUNT_GENRES","12");
+	// Turn caching on for images that are situated on the tmdb. 
+	// If the TMDB would experiencing problems with there website it will mean that if you will disabeling this feature you will also.
+	// Also it bandwith friendlier for themoviedb
+	// If caching is on it will mean that you will have to count on 25mb on image footage per 300 movies.
+	define("CACHING", true);
+
+	// STATISTICS PAGE
+		// Show the amount of genres by the piechart
+		define("SHOW_AMOUNT_GENRES","12");
+
 ?>

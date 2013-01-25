@@ -15,12 +15,12 @@ if(isset($_GET["url"])){
 		while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
 			?>
 <div id="bg">
-	<img src="<?=$r["backdrop_path_original"]?>" alt="">
+	<img src="image.php?url=<?=$r["backdrop_path_original"]?>" alt="">
 </div>
 					<div class="movie_content">
 						<div class="movie_sidebar trailer_complement smaller">
-							<a class="movie_poster" href="<?=$r["poster_path_original"]?>">
-								<img src="<?=$r["poster_path_w185"]?>">
+							<a class="movie_poster" href="image.php?url=<?=urlencode($r["poster_path_original"])?>">
+								<img src="image.php?url=<?=urlencode($r["poster_path_w185"])?>">
 							</a>
 						</div>
 						<div class="title"><?=$r["title"]?> <span class="year"><?=substr($r["release_date"],0,4)?></span>
@@ -248,7 +248,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	?>
 		<div class="item span4">
 			<a href="<?=$r["url"]?>">
-				<img src="img/mymoviedb.jpg" data-original="<?=$r["backdrop_path_w342"]?>" width="100%" alt="" />
+				<img src="img/mymoviedb.jpg" data-original="image.php?url=<?=urlencode($r["backdrop_path_w342"])?>" width="100%" alt="" />
 				<div class="title">
 					<?=truncate($r["title"],20,' ','..')?> 
 					<span class="year" style='float:left'>
