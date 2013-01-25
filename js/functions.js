@@ -47,7 +47,7 @@ $(document).ready(function () {
 	                //we need to check if the value is the same
 	                if (value==$(that).val()) {
 		               	$('.item').fadeOut().remove();
-		               	$(".container").prepend(msg);
+		               	$("#container").prepend(msg);
 	                }
 	            }
 	        });
