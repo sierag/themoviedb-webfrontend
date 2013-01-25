@@ -140,8 +140,8 @@ function addedit($tmdb, $my_tmdb, $list) {
 		'".$my_tmdb['poster_path_w342']."',
 		'".$my_tmdb['poster_path_original']."',
 		";
-		if(isset($my_tmdb['rating'])){
-		$query = $query. "rating = '".($my_tmdb['rating']*10)."', ";
+		if(isset($movie['rating'])){
+			$query = $query. "rating = '".($movie['rating']*10)."', ";
 		}
 		$query = $query . "
 		'".$title."',
@@ -174,8 +174,8 @@ function addedit($tmdb, $my_tmdb, $list) {
 		poster_path_w342 = '".$my_tmdb['poster_path_w342']."',
 		poster_path_original = '".$my_tmdb['poster_path_original']."',
 		";
-		if(isset($my_tmdb['rating'])){
-		$query = $query. "rating = '".($my_tmdb['rating']*10)."', ";
+		if(isset($movie['rating'])){
+			$query = $query. "rating = '".($movie['rating']*10)."', ";
 		}
 		$query = $query . "
 		title = '".$title."',
