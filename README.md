@@ -8,16 +8,18 @@ http://www.sierag.nl/movie/
 
 FEATURES
 ======================
-- Responsive Wedesign
+- Responsive Webdesign
 - Slide through your movies with keyboard navigation
 - Loading only the images when needed (by Lazy loading) 
-- Displaying all movies in one screen (Masonry)
+- Displaying all your movies in one screen.
 - Searching movies in local database and on themoviedb.org
 - Import all movies from themoviedb.org that you have rated allready
 - Rate a movie and it also will be send to themoviedb.org
 - Statistics page; Plotting charts from your own rated movies
 - Using the APIv3 from themoviedb.org in combination of this fantasic TMDb-PHP-API wrapper 
 - Easy use of known javascript and CSS frameworks as Bootstrap, jQuery.
+- Caching enabled for movie images, bandwith friendly.
+- Run's entirely on it's own there are no dependencies on other hosts.
 
 INSTALLATION
 ======================
