@@ -36,24 +36,36 @@ if(isloggedin()){
 	<?	
 	}
 } else {
-	
 	$query = "SELECT * from movies where title LIKE '%".mysql_real_escape_string($_GET['search_keyword'])."%' AND rating > 10 LIMIT 25";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	
 	if(!mysql_num_rows($result)==0){
-		
-	
+		echo "<div class='row-fluid'>";
+		$i=2;
 		while ($row = mysql_fetch_assoc($result)) {
-	 
+			$i++;
+                        if($i>2) {
+                        	echo "</div><div class='row-fluid'>";
+                                $i=0;
+                        }
 	?>
-			<div class="item">
+			<div class="item span4">
 				<a href="<?=$row["url"]?>">
 					<div class="title"><?=$row["title"]?></div>
-					<img src="<?=$row["backdrop_path_w342"]?>" width="342px" alt="" />
+					<img src="<?=$row["backdrop_path_w342"]?>" width="100%" alt="" />
+                                	<div class="title">
+                                        	<?=truncate($row["title"],20,' ','..')?>
+	        	                        <span class="year" style='float:left'>
+       	                	                        <?=substr($row["release_date"],0,4)?>
+       	                        	         </span>
+       	                                	 <span style="float:right">
+       	                                        	 <?=$row["rating"]/10?>
+       	                                 	</span>
+       		                         </div>
 				</a>
 			</div>			
 	<?
 		}
+		echo "</div>";
 	
 	} else {
 	?>

@@ -75,9 +75,6 @@ h1.amount span {font-size: 0.24em;color:grey}
       
     }
     
-    .navbar #search {
-	    margin: 10px 10px
-	    
+    .form-search {
+	margin-top:10px    
     }
-
-

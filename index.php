@@ -232,7 +232,7 @@ $query = "SELECT * from movies WHERE rating > 10 order by ".$sort." ".$ascdesc .
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 ?>
-<div class="container">
+<div class="container-fluid" id="container">
 	<div class="row-fluid">
 	<?
 		if(mysql_num_rows($result)==0){
