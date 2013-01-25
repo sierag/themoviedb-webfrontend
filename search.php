@@ -15,11 +15,17 @@ if(isloggedin()){
 		for($i=0;$i<count($movies['results']);$i++){
 			$ratedArr[] = $movies["results"][$i];
 		}
-	
+		echo "<div class='row-fluid'>";
+		$i=3;
 		foreach($ratedArr as $r){
+			$i++;
+                        if($i>3) {
+                        	echo "</div><div class='row-fluid'>";
+                                $i=0;
+                        }
 			$y = addedit($tmdb, $r, 'watchlist');
 	?>
-			<div class="item external">
+			<div class="item span3">
 				<a href="<?=$y["url"]?>">
 					<div class="title"><?=$y["title"]?></div>
 					<img src="<?=$y["poster_path_w185"]?>" width="185px" alt="" />
@@ -27,7 +33,7 @@ if(isloggedin()){
 			</div>			
 	<?
 		}
-	
+		echo "</div>";
 	} else {
 	?>
 	<div class="item">
