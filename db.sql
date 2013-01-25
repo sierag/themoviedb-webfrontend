@@ -103,3 +103,11 @@ CREATE TABLE IF NOT EXISTS `genres_movie` (
   KEY `movie_tmdb_id` (`movie_tmdb_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+CREATE TABLE `sierag1`.`trailers` (
+`tmdb_id` INT NOT NULL ,
+`type` VARCHAR( 255 ) NOT NULL ,
+`name` INT( 255 ) NOT NULL ,
+`size` VARCHAR( 255 ) NOT NULL ,
+`source` VARCHAR( 255 ) NOT NULL ,
+INDEX ( `tmdb_id` )
+) ENGINE = MYISAM ;

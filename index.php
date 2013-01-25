@@ -26,6 +26,7 @@ if(isset($_GET["url"])){
 						<div class="title"><?=$r["title"]?> <span class="year"><?=substr($r["release_date"],0,4)?></span>
 						
 						</div>
+						<p><?=timer($r["runtime"])?></p>
 						<? if(isloggedin()){ ?>
 						<div class="movie_rating">
 							<select id="rating" rel='<?=$r["tmdb_id"]?>'>
@@ -51,14 +52,42 @@ if(isset($_GET["url"])){
 								<p><?=$r["overview"]?></p>
 							</div>
 						</div>
-						<div class="length"><?=timer($r["runtime"])?></div>
 						<div class="clear"></div>
+					<? if (isloggedin()){ ?>
 						<div class="length">
-							External info:&nbsp;&nbsp;
-							<a class="fakebutton tmdb" href="http://www.themoviedb.org/movie/<?=$r["tmdb_id"]?>">TMDb</a> |
+							<a href="import.php?action=importsingle&tmdb_id=<?=$r["tmdb_id"]?>" class='btn'><i class="icon-refresh"></i> Refresh movie from TMdb</a>
+						<br /><small>Last update: <?=$r['update_date']?></small>
+						</div>
+					<? } ?>	
+			<?
+			$query = "SELECT * from trailers where tmdb_id = ".$r["tmdb_id"]."";
+			$trailers = mysql_query($query) or die('Query failed: ' . mysql_error());
+			if(mysql_num_rows($trailers)>0) {
+				?>
+				Trailer<?if(mysql_num_rows($trailers)>1){?>s<?}?>: 
+				<?
+				while ($t = mysql_fetch_array($trailers, MYSQL_ASSOC)) {
+				?>
+<a href="#modal<?=$t['source']?>" role="button" data-toggle="modal"><i class="icon-film"></i> <?=$t["name"]?></a>&nbsp;
+
+<div id="modal<?=$t['source']?>" class="modal hide fade" style="width:600px;" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+	<div class="modal-header">
+		<button type="button" class="close" data-dismiss="modal" aria-hidden="true"><i class="icon-remove-sign"></i></button>
+		<h3 id="myModalLabel" style="color:black"><?=$r["title"]?>  <?=$t["name"]?></h3>
+	</div>
+	<div class="modal-body" style="width:600px;">
+    		<iframe width="560" height="315" src="http://www.youtube.com/embed/<?=$t['source']?>?rel=0" frameborder="0" allowfullscreen></iframe>
+	</div>
+</div>
+					<?	
+				}
+			}
+			?>
+							<br />External info:
+							<a class="fakebutton tmdb" href="http://www.themoviedb.org/movie/<?=$r["tmdb_id"]?>">TMDb</a> 
 							<a class="fakebutton imdb" href="http://www.imdb.com/title/<?=$r["tmdb_id"]?>/">IMDb</a>
 						</div>
-						<div class="clear"></div>
+					<div class="clear"></div>
 					</div>
 			<?
 		}

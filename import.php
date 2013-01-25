@@ -8,12 +8,6 @@ require_once('header.php');
 $tmdb = new TMDb(TMDB_APIKEY);
 ?>
 <div class="container">
-<br />
-<br />
-<br />
-<br />
-<br />
-<br />
 <?	
 	if(!isset($_SESSION) || empty($_SESSION['tmdb_session_id'])){
 		$token = $tmdb->getAuthToken();
@@ -77,6 +71,12 @@ $tmdb = new TMDb(TMDB_APIKEY);
 					foreach($ratedArr as $r){
 						addedit($tmdb, $r, 'watchlist');
 					}
+				} elseif($_GET["action"]=='importsingle') { 		
+					$b = addedit($tmdb, intval($_GET['tmdb_id']), 'watchlist');
+					
+					?>
+					<script>location.href = '<?=SUBDIR?><?=$b['url']?>';</script>
+					<?
 				} elseif($_GET["action"]=='importgenres') { 		
 					ob_end_flush();
 					$genres = $tmdb->getGenres();

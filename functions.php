@@ -77,22 +77,30 @@ function updateMovieGenres($genres,$movie_tmdb_id) {
 	return true;
 }
 
-function addedit($tmdb, $my_tmdb, $list) {
+function addedit($tmdb, $tmdb_id, $list) {
 	
-	$movie = $tmdb->getMovie($my_tmdb['id']);
+	$movie = $tmdb->getMovie($tmdb_id);
+
+	$trailers = $tmdb->getMovieTrailers($tmdb_id);
 	
-	updateMovieGenres($movie["genres"], $my_tmdb['id']);
+	$query = "DELETE from trailers where tmdb_id = ".$tmdb_id."";	
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	foreach($trailers['youtube'] as $t){
+		$query = "INSERT INTO trailers (tmdb_id,type,name,size,source)VALUES (".$tmdb_id.",'youtube','".$t["name"]."','".$t["size"]."','".$t["source"]."')";	
+		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	}
+	updateMovieGenres($movie["genres"], $tmdb_id);
 	
-	$my_tmdb['poster_path_w185'] = $tmdb->getImageUrl($my_tmdb['poster_path'], 'poster', "w185");
-	$my_tmdb['poster_path_w342'] = $tmdb->getImageUrl($my_tmdb['poster_path'], 'poster', "w342");
-	$my_tmdb['poster_path_original'] = $tmdb->getImageUrl($my_tmdb['poster_path'], 'poster', "original");
-	$my_tmdb['backdrop_path_w185'] = $tmdb->getImageUrl($my_tmdb['backdrop_path'], 'poster', "w185");
-	$my_tmdb['backdrop_path_w342'] = $tmdb->getImageUrl($my_tmdb['backdrop_path'], 'poster', "w342");
-	$my_tmdb['backdrop_path_w500'] = $tmdb->getImageUrl($my_tmdb['backdrop_path'], 'poster', "w500");
-	$my_tmdb['backdrop_path_original'] = $tmdb->getImageUrl($my_tmdb['backdrop_path'], 'poster', "original");
-	$title = mysql_escape_string(utf8_decode($my_tmdb['title']));
-	$url = sanitize($title) . "-" .$my_tmdb['id'];
-	$query = "SELECT id from movies where tmdb_id = ".$my_tmdb['id']."";	
+	$my_tmdb['poster_path_w185'] = $tmdb->getImageUrl($movie['poster_path'], 'poster', "w185");
+	$my_tmdb['poster_path_w342'] = $tmdb->getImageUrl($movie['poster_path'], 'poster', "w342");
+	$my_tmdb['poster_path_original'] = $tmdb->getImageUrl($movie['poster_path'], 'poster', "original");
+	$my_tmdb['backdrop_path_w185'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "w185");
+	$my_tmdb['backdrop_path_w342'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "w342");
+	$my_tmdb['backdrop_path_w500'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "w500");
+	$my_tmdb['backdrop_path_original'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "original");
+	$title = mysql_escape_string(utf8_decode($movie['title']));
+	$url = sanitize($title) . "-" .$tmdb_id;
+	$query = "SELECT id from movies where tmdb_id = ".$tmdb_id."";	
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	if(mysql_num_rows($result)==0){
 		// INSERT
@@ -115,7 +123,7 @@ function addedit($tmdb, $my_tmdb, $list) {
 		`poster_path_w342`, 
 		`poster_path_original`, 
 		";
-		if(isset($my_tmdb['rating'])){ $query = $query. " `rating`,"; }
+		if(isset($movie['rating'])){ $query = $query. " `rating`,"; }
 		$query = $query . "
 		`title`,  
 		`url`, 
@@ -131,10 +139,10 @@ function addedit($tmdb, $my_tmdb, $list) {
 		'".$my_tmdb['backdrop_path_original']."', 
 		'".$my_tmdb['id']."',
 		'".$movie['imdb_id']."',
-		'".mysql_escape_string(utf8_decode($my_tmdb['original_title']))."' ,
+		'".mysql_escape_string(utf8_decode($movie['original_title']))."' ,
 		'".mysql_escape_string(utf8_decode($movie['overview']))."',
 		'".$movie['homepage']."' ,
-		'".$my_tmdb['release_date']."',
+		'".$movie['release_date']."',
 		'".$movie['runtime']."',
 		'".$my_tmdb['poster_path_w185']."',
 		'".$my_tmdb['poster_path_w342']."',
@@ -146,8 +154,8 @@ function addedit($tmdb, $my_tmdb, $list) {
 		$query = $query . "
 		'".$title."',
 		'".$url."',
-		'".$my_tmdb['vote_average']."',
-		'".$my_tmdb['vote_count']."',
+		'".$movie['vote_average']."',
+		'".$movie['vote_count']."',
 		CURRENT_TIMESTAMP,
 		'0000-00-00 00:00:00'		
 		)";
@@ -163,12 +171,12 @@ function addedit($tmdb, $my_tmdb, $list) {
 		backdrop_path_w342 = '".$my_tmdb['backdrop_path_w342']."', 
 		backdrop_path_w500 = '".$my_tmdb['backdrop_path_w500']."', 
 		backdrop_path_original = '".$my_tmdb['backdrop_path_original']."', 
-		tmdb_id = '".$my_tmdb['id']."',
+		tmdb_id = '".$tmdb_id."',
 		imdb_id = '".$movie['imdb_id']."',
-		original_title = '".mysql_escape_string(utf8_decode($my_tmdb['original_title']))."' ,
+		original_title = '".mysql_escape_string(utf8_decode($movie['original_title']))."' ,
 		overview = '".mysql_escape_string(utf8_decode($movie['overview']))."',
 		homepage = '".$movie['homepage']."' ,
-		release_date = '".$my_tmdb['release_date']."',
+		release_date = '".$movie['release_date']."',
 		runtime = '".$movie['runtime']."',
 		poster_path_w185 = '".$my_tmdb['poster_path_w185']."',
 		poster_path_w342 = '".$my_tmdb['poster_path_w342']."',
@@ -180,8 +188,8 @@ function addedit($tmdb, $my_tmdb, $list) {
 		$query = $query . "
 		title = '".$title."',
 		url = '".$url."',
-		vote_average = '".$my_tmdb['vote_average']."',
-		vote_count = '".$my_tmdb['vote_count']."',
+		vote_average = '".$movie['vote_average']."',
+		vote_count = '".$movie['vote_count']."',
 		update_date = CURRENT_TIMESTAMP
 		WHERE id = '".$id."'";
 	}
