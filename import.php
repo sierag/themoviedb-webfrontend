@@ -88,11 +88,7 @@ $tmdb = new TMDb(TMDB_APIKEY);
 			} else { 
 					?>
 					<ul>
-						<li><a href="?action=updategenres"  class="btn">updategenres</a></li>
-						<li><a href="?action=importratings"  class="btn">import rated movies</a></li>
-						<li><a href="?action=sanatizeall" class="btn">sanatize urls</a></li>
-						<li><a href="?action=importall" class="btn">import all movies per genre</a></li>
-						<li><a href="?action=importgenres" class="btn">import genres</a></li>
+						<li><a href="?action=importarray"  class="btn">import rated movies</a></li>
 					</ul>
 					<?
 			}
