@@ -14,11 +14,10 @@ $tmdb = new TMDb(TMDB_APIKEY);
 <br />
 <br />
 <br />
-<br />
 <?	
 	if(!isset($_SESSION) || empty($_SESSION['tmdb_session_id'])){
 		$token = $tmdb->getAuthToken();
-		?><a href="<?=$token['Authentication-Callback']?>?redirect_to=http://www.sierag.nl/movie/gensession.php" class="btn" target="_blank">request token</a><?
+		?><a href="<?=$token['Authentication-Callback']?>?redirect_to=http://<?=SERVER_NAME?><?=SUBDIR?>gensession.php" class="btn" target="_blank">request token</a><?
 	} else {
 
 			if(empty($_SESSION['tmdb_id'])){
