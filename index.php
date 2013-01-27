@@ -13,6 +13,7 @@ if(isset($_GET["url"])){
 		die('no movies found');
 	} else {
 		while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+$url = $r["url"];
 			?>
 <div id="bg">
 	<img src="image.php?url=<?=$r["backdrop_path_original"]?>" alt="">
@@ -122,7 +123,7 @@ if(isset($_GET["url"])){
 			$randresult = mysql_query($rand) or die('Query failed: ' . mysql_error());
 			while ($rand = mysql_fetch_array($randresult, MYSQL_ASSOC)) { 
 			?>
-			<a class="overview" href="<?=SUBDIR?>"><i class="icon-th"></i></a>
+			<a class="overview" href="<?=SUBDIR?>#<?=$url?>"><i class="icon-th"></i></a>
 			<a class="rand" href="<?=$rand['url']?>"><i class="icon-refresh"></i></a>
 			<? } ?>
 			<a class="next" href="<?=$nextid?>?from=right"><i class="icon-step-forward"></i></a>
@@ -178,15 +179,16 @@ $("#bg").fadeIn(1000);
 <? } ?>
 
   $('body').keyup(function (event) {
-    // handle cursor keys
+    // handle cursor key
     if (event.keyCode == 37) {
 	    <? if(isset($previd) && $previd!=false) { ?>	
 	    doLeft();
 	    <? } ?>
     } else if (event.keyCode == 39) {
 	    doRight();
-    } else if (event.keyCode == 38) {
-	    doUp();
+    } else if (event.keyCode == 38 || event.keyCode == 27) {
+	// key up and esc
+	doUp();
     } else if (event.keyCode == 40) {
 	    doDown();
     }
@@ -276,6 +278,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 				}
 	?>
 		<div class="item span4">
+			<a name="<?=$r["url"]?>"></a>
 			<a href="<?=$r["url"]?>">
 				<img src="img/mymoviedb.jpg" data-original="image.php?url=<?=urlencode($r["backdrop_path_w342"])?>" width="100%" alt="" />
 				<div class="title">

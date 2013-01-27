@@ -137,7 +137,7 @@ function addedit($tmdb, $tmdb_id, $list) {
 		'".$my_tmdb['backdrop_path_w342']."', 
 		'".$my_tmdb['backdrop_path_w500']."', 
 		'".$my_tmdb['backdrop_path_original']."', 
-		'".$my_tmdb['id']."',
+		'".$tmdb_id."',
 		'".$movie['imdb_id']."',
 		'".mysql_escape_string(utf8_decode($movie['original_title']))."' ,
 		'".mysql_escape_string(utf8_decode($movie['overview']))."',

@@ -35,7 +35,7 @@ $(document).ready(function () {
 	    value = $(this).val();
 	
 	    if (value.length >= minlength ) {
-	        
+	    	$('#searchicon').removeClass('icon-search').addClass('icon-spinner icon-spin');    
 	        $.ajax({
 	            type: "GET",
 	            url: "search.php",
@@ -44,6 +44,7 @@ $(document).ready(function () {
 	            },
 	            dataType: "text",
 	            success: function(msg) {
+	    		$('#searchicon').removeClass('icon-spinner icon-spin').addClass('icon-search');    
 	                //we need to check if the value is the same
 	                if (value==$(that).val()) {
 		               	$('.item').fadeOut().remove();
@@ -57,11 +58,11 @@ $(document).ready(function () {
 	
 	
 	// Toggle fullscreen button:
-    /* $('#toggle-fullscreen').button().click(function () {
+    	/*
+	$('#fullscreen').click(function () {
         var button = $(this),
             root = document.documentElement;
         if (!button.hasClass('active')) {
-            $('#modal-gallery').addClass('modal-fullscreen');
             if (root.webkitRequestFullScreen) {
                 root.webkitRequestFullScreen(
                     window.Element.ALLOW_KEYBOARD_INPUT
@@ -70,11 +71,10 @@ $(document).ready(function () {
                 root.mozRequestFullScreen();
             }
         } else {
-            $('#modal-gallery').removeClass('modal-fullscreen');
             (document.webkitCancelFullScreen ||
                 document.mozCancelFullScreen ||
                 $.noop).apply(document);
         }
-    });
-	*/
+    	})
+	*/;
 });

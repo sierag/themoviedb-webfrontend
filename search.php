@@ -6,7 +6,6 @@ require_once('TMDb-PHP-API/TMDb.php');
 
 
 if(isloggedin()){
-
 	$tmdb = new TMDb(TMDB_APIKEY);
 	$movies = $tmdb->searchMovie($_GET['search_keyword']);
 	
@@ -17,18 +16,28 @@ if(isloggedin()){
 		}
 		echo "<div class='row-fluid'>";
 		$i=3;
-		foreach($ratedArr as $r){
+		foreach($ratedArr as $r) {
+			$r['poster_path_w185'] = $tmdb->getImageUrl($r['poster_path'], 'poster', "w185");
+
+			
 			$i++;
                         if($i>3) {
                         	echo "</div><div class='row-fluid'>";
                                 $i=0;
                         }
-			$y = addedit($tmdb, $r, 'watchlist');
 	?>
 			<div class="item span3">
-				<a href="<?=$y["url"]?>">
-					<div class="title"><?=$y["title"]?></div>
-					<img src="<?=$y["poster_path_w185"]?>" width="185px" alt="" />
+				<a href="import.php?action=importsingle&tmdb_id=<?=$r["id"]?>">
+				<img src="<?=$r["poster_path_w185"]?>" width="100%" alt="" />
+				<div class="title">
+					<?=truncate($r["title"],20,' ','..')?> 
+					<span class="year" style='float:left'>
+						<?=substr($r["release_date"],0,4)?>
+					</span> 
+					<span style="float:right">
+						<?=$r["vote_average"]?>
+					</span>
+				</div>
 				</a>
 			</div>			
 	<?

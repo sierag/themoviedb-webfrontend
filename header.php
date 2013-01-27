@@ -25,12 +25,15 @@
             </a>
             <a class="brand" href="<?=SUBDIR?>"><?=SITE_TITLE?></a>
             <div class="nav-collapse searchcollapse collapse">
-		<form class="form-search pull-right">
-	  	    <div class="input-append">
-	 	   	<input type="text" class="span2 search-query" placeholder="search" name='search' id='search'>
-  			<button type="submit" class="btn"><i class="icon-search"></i></button>
+		<ul class="nav pull-right">
+		<li><form class="form-search">
+	  	  <div class="input-append">
+	 	   	<input type="text" class="span2 search-query inverse" placeholder="search" name='search' id='search'>
+  			<button type="submit" class="btn btn-inverse"><i class="icon-search" id='searchicon'></i></button>
   		  </div>
-		</form>
+		</form></li>
+<!--		<li><a href="#fullscreen" id="fullscreen" class="btn btn-inverse"><i class="icon-fullscreen"></i></a></li>
+-->	        </ul>
 	    </div>
 	    <div class="nav-collapse collapse">
 		<ul class="nav">
