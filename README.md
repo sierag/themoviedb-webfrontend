@@ -44,7 +44,6 @@ SCREENSHOTS
 ![Movie page iPad](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/ipad2.jpg)
 ![Stats page](http://github.com/sierag/themoviedb-webfrontend/raw/master/img/screen3.jpg)
 
-
 Resources Used
 ===============
 * [TMDb-PHP-API](https://github.com/glamorous/TMDb-PHP-API)
@@ -53,3 +52,6 @@ Resources Used
 * [Masonry](http://masonry.desandro.com/)
 * [LazyLoading](http://www.appelsiini.net/projects/lazyload)
 * [Flot](https://github.com/flot/flot)
+
+[![endorse](http://api.coderwall.com/sierag/endorsecount.png)](http://coderwall.com/sierag)
+
