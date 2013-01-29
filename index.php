@@ -56,7 +56,7 @@ $url = $r["url"];
 			$directors = mysql_query($query) or die('Query failed: ' . mysql_error());
 			if(mysql_num_rows($directors)>0) {
 				$i = 0;
-				print "<p><strong>Director:</strong> ";
+				print "<p><strong>Directed by:</strong> ";
 				while  ($d = mysql_fetch_array($directors, MYSQL_ASSOC)) {
 					if ($i > 0) {
         	                	        print ", ";

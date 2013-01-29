@@ -93,7 +93,7 @@ GROUP BY gm.genre_tmdb_id ORDER BY genrecount desc";
 				$arr[$n['myyear']] = $n['myamount'];
 			}
 			?>
-			<h1>Movies seen by year it was released</h1>
+			<h1>Movies seen by year they were released</h1>
 			<div id="placeholder" style="width:100%;height:300px;"></div>
 		</div>
 	</div>
@@ -138,4 +138,28 @@ $(function () {// Randomly Generated Data
 });
 
 </script>
+<div class="container">
+	<div class="row-fluid">
+		<div class="span5">
+			<h1>Most Popular Directors</h1>
+<?
+	$query = "SELECT COUNT(*) AS amount, name FROM crews WHERE job = 'Director' GROUP BY name ORDER BY amount DESC LIMIT 0,15";
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		echo "<p>".$d['name']." (".$d['amount'].")</p>";
+	}
+?>
+		</div>
+		<div class="span5">
+			<h1>Most Popular Actors</h1>
+<?
+	$query = "SELECT COUNT(*) AS amount, name FROM casts GROUP BY name ORDER BY amount DESC LIMIT 0,15";
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		echo "<p>".$d['name']." (".$d['amount'].")</p>";
+	}
+?>
+		</div>
+	</div>
+</div>
 <? require_once('footer.php'); ?>
