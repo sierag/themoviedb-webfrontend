@@ -86,7 +86,7 @@ $url = $r["url"];
 			?>
 							<br />External info:
 							<a class="fakebutton tmdb" href="http://www.themoviedb.org/movie/<?=$r["tmdb_id"]?>">TMDb</a> 
-							<a class="fakebutton imdb" href="http://www.imdb.com/title/<?=$r["tmdb_id"]?>/">IMDb</a>
+							<a class="fakebutton imdb" href="http://www.imdb.com/title/<?=$r["imdb_id"]?>/">IMDb</a>
 						</div>
 					<div class="clear"></div>
 					</div>
