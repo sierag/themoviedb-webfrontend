@@ -279,7 +279,6 @@ $query = "SELECT * from movies WHERE rating > 10 order by ".$sort." ".$ascdesc .
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 ?>
-<div class="container-fluid" id="container">
 	<div class="row-fluid">
 	<?
 		if(mysql_num_rows($result)==0){
@@ -313,7 +312,6 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		}
 	?>
 	</div>
-</div>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/jquery.lazyload.js"></script>

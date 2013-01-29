@@ -12,6 +12,7 @@
 
 </head>
 <body>
+<div class="container-fluid" id="container">
 <!-- NAVBAR
     ================================================== -->
         <div class="navbar navbar-inverse navbar-fixed-top">

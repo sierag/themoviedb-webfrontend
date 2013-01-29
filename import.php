@@ -60,16 +60,16 @@ $tmdb = new TMDb(TMDB_APIKEY);
 						for($page=1;$page<($rated['total_pages']+1);$page++){
 							$rated = $tmdb->getAccountRatedMovies($_SESSION['tmdb_id'],$_SESSION['tmdb_session_id'],$page);
 							for($i=0;$i<count($rated['results']);$i++){
-								$ratedArr[] = $rated["results"][$i];
+								$ratedArr[] = $rated["results"][$i]['id'];
 							}						
 						}
 					} else {
 						for($i=0;$i<count($rated['results']);$i++){
-							$ratedArr[] = $rated["results"][$i];
+							$ratedArr[] = $rated["results"][$i]['id'];
 						}
 					}	
-					foreach($ratedArr as $r){
-						addedit($tmdb, $r, 'watchlist');
+					foreach($ratedArr as $r) {
+						addedit($tmdb, $r, 'rated');
 					}
 				} elseif($_GET["action"]=='importsingle') { 		
 					$b = addedit($tmdb, intval($_GET['tmdb_id']), 'watchlist');
