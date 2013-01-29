@@ -76,16 +76,43 @@ function updateMovieGenres($genres,$movie_tmdb_id) {
 
 	return true;
 }
+function addeditcastcrew($tmdb, $tmdb_id) {
+	$crew = $tmdb->getMovieCast($tmdb_id);
 
+	// Add/update crew
+	$query = "DELETE from crews where movie_id = ".$tmdb_id."";
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	foreach ($crew["crew"] as $c) {
+		$c['name'] = preg_replace("/'/", "\\'", $c['name']);
+		$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
+		$query = "INSERT INTO `crews` (person_id, movie_id, name, job, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["job"]."','".$c["profile_path"]."')";
+		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	}
+
+	// Add/update cast
+	$query = "DELETE from casts where movie_id = ".$tmdb_id."";
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	foreach ($crew["cast"] as $c) {
+		$c['name'] = preg_replace("/'/", "\\'", $c['name']);
+		$c['character'] = preg_replace("/'/", "\\'", $c['character']);
+		$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
+		$c['character'] = preg_replace("/\"/", "\\\"", $c['character']);
+		$query = "INSERT INTO `casts` (person_id, movie_id, name, character_name, ordered, cast_id, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["character"]."',".$c["order"].",".$c["cast_id"].",'".$c["profile_path"]."')";
+		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	}
+}
 function addedit($tmdb, $tmdb_id, $list) {
 	
 	$movie = $tmdb->getMovie($tmdb_id);
 
 	$trailers = $tmdb->getMovieTrailers($tmdb_id);
+	addeditcastcrew($tmdb, $tmdb_id);
 	
 	$query = "DELETE from trailers where tmdb_id = ".$tmdb_id."";	
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	foreach($trailers['youtube'] as $t){
+		$t['name'] = preg_replace("/'/", "\\'", $t['name']);
+		$t['name'] = preg_replace("/\"/", "\\\"", $t['name']);
 		$query = "INSERT INTO trailers (tmdb_id,type,name,size,source)VALUES (".$tmdb_id.",'youtube','".$t["name"]."','".$t["size"]."','".$t["source"]."')";	
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	}

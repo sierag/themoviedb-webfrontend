@@ -51,6 +51,22 @@ $url = $r["url"];
 						<div class="trailer_complement">
 							<div class="movie_plot">
 								<p><?=$r["overview"]?></p>
+			<?
+			$query = "SELECT * FROM crews WHERE movie_id = ".$r["tmdb_id"]." AND job = 'Director'";
+			$directors = mysql_query($query) or die('Query failed: ' . mysql_error());
+			if(mysql_num_rows($directors)>0) {
+				$i = 0;
+				print "<p><strong>Director:</strong> ";
+				while  ($d = mysql_fetch_array($directors, MYSQL_ASSOC)) {
+					if ($i > 0) {
+        	                	        print ", ";
+                	        	}
+                        		print $d["name"];
+                        		$i++;	
+				}
+				print "</p>";
+			}
+			?>
 							</div>
 						</div>
 						<div class="clear"></div>

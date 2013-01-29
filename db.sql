@@ -103,7 +103,7 @@ CREATE TABLE IF NOT EXISTS `genres_movie` (
   KEY `movie_tmdb_id` (`movie_tmdb_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
-CREATE TABLE `sierag1`.`trailers` (
+CREATE TABLE `trailers` (
 `tmdb_id` INT NOT NULL ,
 `type` VARCHAR( 255 ) NOT NULL ,
 `name` INT( 255 ) NOT NULL ,
@@ -111,3 +111,33 @@ CREATE TABLE `sierag1`.`trailers` (
 `source` VARCHAR( 255 ) NOT NULL ,
 INDEX ( `tmdb_id` )
 ) ENGINE = MYISAM ;
+
+
+--
+-- Table structure for table `casts`
+--
+CREATE TABLE IF NOT EXISTS `casts` (
+  `person_id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `character_name` varchar(255) NOT NULL,
+  `ordered` int(11) NOT NULL,
+  `cast_id` int(11) NOT NULL,
+  `profile_path` varchar(255) NOT NULL,
+  KEY `person_id` (`person_id`),
+  KEY `movie_id` (`movie_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+--
+-- Table structure for table `crews`
+--
+CREATE TABLE IF NOT EXISTS `crews` (
+  `person_id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `job` varchar(255) NOT NULL,
+  `profile_path` varchar(255) NOT NULL,
+  KEY `director_id` (`person_id`),
+  KEY `movie_id` (`movie_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
