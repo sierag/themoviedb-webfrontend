@@ -91,6 +91,8 @@ function addeditcastcrew($tmdb, $tmdb_id) {
 	foreach ($crew["crew"] as $c) {
 		$c['name'] = preg_replace("/'/", "\\'", $c['name']);
 		$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
+		$c['job'] = preg_replace("/'/", "\\'", $c['job']);
+		$c['job'] = preg_replace("/\"/", "\\\"", $c['job']);
 		$query = "INSERT INTO `crews` (person_id, movie_id, name, job, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["job"]."','".$c["profile_path"]."')";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		logg("new crew person added {$c['name']}");
