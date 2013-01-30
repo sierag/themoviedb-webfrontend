@@ -78,7 +78,7 @@ GROUP BY gm.genre_tmdb_id ORDER BY genrecount desc";
 		<div class="span8">
 			<?
 			// YEAR
-			$q = "SELECT count(id) as myamount, EXTRACT(YEAR FROM release_date) myyear FROM `movies` where rating > 10 GROUP BY myyear order by myyear asc";
+			$q = "SELECT count(id) as myamount, EXTRACT(YEAR FROM release_date) myyear FROM `movies` where rating > 10 AND release_date > '0000-00-00' GROUP BY myyear order by myyear asc";
 			$y = mysql_query($q) or die('Query failed: ' . mysql_error());
 			$firstyear = date("Y");
 			$lastyear = 0;
@@ -140,26 +140,29 @@ $(function () {// Randomly Generated Data
 </script>
 <div class="container">
 	<div class="row-fluid">
-		<div class="span5">
+		<div class="span6">
 			<h1>Most Popular Directors</h1>
 <?
-	$query = "SELECT COUNT(*) AS amount, name FROM crews WHERE job = 'Director' GROUP BY name ORDER BY amount DESC LIMIT 0,15";
+	$query = "SELECT COUNT(*) AS amount, person_id, name FROM crews WHERE job = 'Director' GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,15";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		echo "<p>".$d['name']." (".$d['amount'].")</p>";
+		echo "<p><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</p>";
 	}
 ?>
 		</div>
-		<div class="span5">
+		<div class="span6">
 			<h1>Most Popular Actors</h1>
 <?
-	$query = "SELECT COUNT(*) AS amount, name FROM casts GROUP BY name ORDER BY amount DESC LIMIT 0,15";
+	$query = "SELECT COUNT(*) AS amount,person_id, name FROM casts GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,15";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		echo "<p>".$d['name']." (".$d['amount'].")</p>";
+		echo "<p><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</p>";
 	}
 ?>
 		</div>
 	</div>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
+	<p>&nbsp;</p>
 </div>
 <? require_once('footer.php'); ?>

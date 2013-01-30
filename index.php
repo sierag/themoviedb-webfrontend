@@ -51,37 +51,36 @@ $url = $r["url"];
 						<div class="trailer_complement">
 							<div class="movie_plot">
 								<p><?=$r["overview"]?></p>
-			<?
-			$query = "SELECT * FROM crews WHERE movie_id = ".$r["tmdb_id"]." AND job = 'Director'";
-			$directors = mysql_query($query) or die('Query failed: ' . mysql_error());
-			if(mysql_num_rows($directors)>0) {
-				$i = 0;
-				print "<p><strong>Directed by:</strong> ";
-				while  ($d = mysql_fetch_array($directors, MYSQL_ASSOC)) {
-					if ($i > 0) {
-        	                	        print ", ";
-                	        	}
-                        		print $d["name"];
-                        		$i++;	
-				}
-				print "</p>";
-			}
-			?>
 							</div>
 						</div>
 						<div class="clear"></div>
 					<? if (isloggedin()){ ?>
 						<div class="length">
-							<a href="import.php?action=importsingle&tmdb_id=<?=$r["tmdb_id"]?>" class='btn'><i class="icon-refresh"></i> Refresh movie from TMdb</a>
+							<a href="import.php?action=importsingle&tmdb_id=<?=$r["tmdb_id"]?>" class='btn'><i class="icon-refresh"></i> Refresh movie from TMDb</a>
 						<br /><small>Last update: <?=$r['update_date']?></small>
 						</div>
 					<? } ?>	
+			<?
+			$query = "SELECT person_id, name FROM crews WHERE movie_id = ".$r["tmdb_id"]." AND job = 'Director'";
+			$directors = mysql_query($query) or die('Query failed: ' . mysql_error());
+			if(mysql_num_rows($directors)>0) {
+				$i = 0;
+				print "Directed by: ";
+				while  ($d = mysql_fetch_array($directors, MYSQL_ASSOC)) {
+					if ($i > 0) {
+        	                	        print ", ";
+                	        	}
+                        		print "<a href='person/".$d["person_id"]."'>" . $d["name"]. "</a><br />";
+                        		$i++;	
+				}
+			}
+			?>
 			<?
 			$query = "SELECT * from trailers where tmdb_id = ".$r["tmdb_id"]."";
 			$trailers = mysql_query($query) or die('Query failed: ' . mysql_error());
 			if(mysql_num_rows($trailers)>0) {
 				?>
-				Trailer<?if(mysql_num_rows($trailers)>1){?>s<?}?>: 
+				Trailer<?if(mysql_num_rows($trailers)>1){?>s<?}?>:&nbsp; 
 				<?
 				while ($t = mysql_fetch_array($trailers, MYSQL_ASSOC)) {
 				?>

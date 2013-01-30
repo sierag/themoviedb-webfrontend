@@ -1,0 +1,25 @@
+Options Followsymlinks
+# BEGIN WordPress
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^person/(.*)$ /index.php?url=$1 [QSA,L]
+RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
+# END WordPress
+
+<IfModule mod_expires.c>
+	ExpiresActive On
+	ExpiresByType image/x-icon A2592000
+	ExpiresByType application/x-javascript A2592000
+	ExpiresByType text/css A2592000
+	ExpiresByType image/gif A604800
+	ExpiresByType image/png A604800
+	ExpiresByType image/jpeg A604800
+	ExpiresByType text/plain A604800
+	ExpiresByType application/x-shockwave-flash A604800
+	ExpiresByType video/x-flv A604800
+	ExpiresByType application/pdf A604800
+</IfModule>
+

@@ -19,7 +19,7 @@ a.imdb {background-image:url("../img/imdb-logo.png") }
 a.tmdb {background-image:url("../img/tmdb-logo.png") }
 
 /* FRONTPAGE */
-#container, .container { padding-top:90px;}
+#container, .container { padding-top:80px;}
 .item { width:100%;overflow:hidden;line-height:0px;opacity: 0.8;padding:0px;margin: 0px;float:left}
 .item a { width:100%;text-decoration: none;float:left;line-height:0px;}
 .item a img { position:relative;z-index:1;float:left;line-height:0px;}
