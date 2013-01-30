@@ -24,6 +24,12 @@ function sanitize($string, $force_lowercase = true, $anal = false) {
         $clean;
 }
 
+function logg($desc) {
+	$desc = mysql_real_escape_string($desc);
+	$query = "INSERT INTO logs (log)VALUES('".$desc."')";
+	return mysql_query($query) or die('Query failed: ' . mysql_error());
+}
+
 function addeditgenre($tmdb, $genre) {
 	if (mysql_num_rows(mysql_query(sprintf(
 			"SELECT id FROM genres WHERE tmdb_id = %d", $genre['id']
@@ -87,6 +93,7 @@ function addeditcastcrew($tmdb, $tmdb_id) {
 		$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
 		$query = "INSERT INTO `crews` (person_id, movie_id, name, job, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["job"]."','".$c["profile_path"]."')";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		logg("new crew person added {$c['name']}");
 	}
 
 	// Add/update cast
@@ -99,6 +106,7 @@ function addeditcastcrew($tmdb, $tmdb_id) {
 		$c['character'] = preg_replace("/\"/", "\\\"", $c['character']);
 		$query = "INSERT INTO `casts` (person_id, movie_id, name, character_name, ordered, cast_id, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["character"]."',".$c["order"].",".$c["cast_id"].",'".$c["profile_path"]."')";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		logg("new cast person added {$c['name']}");
 	}
 }
 function addedit($tmdb, $tmdb_id, $list) {

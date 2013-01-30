@@ -7,7 +7,17 @@ require_once('header.php');
 
 $tmdb = new TMDb(TMDB_APIKEY);
 ?>
-<div class="container">
+<class="row-fluid">
+	<div class="span3">
+		<ul class="nav nav-list">
+          		<li class="active"><a href="import.php"><i class="icon-chevron-right"></i> Import</a></li>
+          		<li><a href="logs.php"><i class="icon-chevron-right"></i> Logs</a></li>
+        	</ul>
+	</div>
+	<div class="span9">
+		<h2>Imports</h2>
+
+
 <?	
 	if(!isset($_SESSION) || empty($_SESSION['tmdb_session_id'])){
 		$token = $tmdb->getAuthToken();
@@ -88,11 +98,13 @@ $tmdb = new TMDb(TMDB_APIKEY);
 			} else { 
 					?>
 					<ul>
-						<li><a href="?action=importarray"  class="btn">import rated movies</a></li>
+						<li><a href="?action=importarray"  class="btn">Import or update all rated movies</a> 
+						<p>This will get all your rated movies from the TMDb website and insert or update the movie data. This function can take a while depending on the amount of rated movies.</p></li>
 					</ul>
 					<?
 			}
 	}
 ?>
+	</div>
 </div>
 <? require_once("footer.php")?>

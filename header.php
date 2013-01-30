@@ -39,7 +39,6 @@
 	    <div class="nav-collapse collapse">
 		<ul class="nav">
 		  <li <? if(SUBDIR . "index.php" == $_SERVER['SCRIPT_NAME']) { ?>class="active"<? } ?>><a href="<?=SUBDIR?>">Rated</a></li>
-	          <li <? if(SUBDIR . "stats.php" == $_SERVER['SCRIPT_NAME']) { ?>class="active"<? } ?>><a href="<?=SUBDIR?>stats.php">Stats</a></li>
 		<? if(!isset($_GET["url"])){ ?>
                   <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">Sort<b class="caret"></b></a>
@@ -51,6 +50,10 @@
                     </ul>
                   </li>
             	<? } ?>
+	          <li <? if(SUBDIR . "stats.php" == $_SERVER['SCRIPT_NAME']) { ?>class="active"<? } ?>><a href="<?=SUBDIR?>stats.php">Stats</a></li>
+	          <? if(isloggedin()){ ?>
+		  <li <? if(SUBDIR . "logs.php" == $_SERVER['SCRIPT_NAME']) { ?>class="active"<? } ?>><a href="<?=SUBDIR?>logs.php">Admin</a></li>
+		  <? } ?>
               </ul>
             </div><!--/.nav-collapse -->
             </div>
