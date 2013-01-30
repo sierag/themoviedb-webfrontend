@@ -1,7 +1,6 @@
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
-
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
@@ -10,7 +9,6 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 -- Table structure for table `movies`
 --
-
 CREATE TABLE IF NOT EXISTS `movies` (
   `id` int(11) NOT NULL auto_increment,
   `backdrop_path_w185` varchar(255) NOT NULL,
@@ -39,13 +37,9 @@ CREATE TABLE IF NOT EXISTS `movies` (
   UNIQUE KEY `tmdb_id` (`tmdb_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1792 ;
 
-
--- --------------------------------------------------------
-
 --
 -- Table structure for table `genres`
 --
-
 CREATE TABLE IF NOT EXISTS `genres` (
   `id` int(11) NOT NULL auto_increment,
   `tmdb_id` int(11) NOT NULL,
@@ -57,7 +51,6 @@ CREATE TABLE IF NOT EXISTS `genres` (
 --
 -- Dumping data for table `genres`
 --
-
 INSERT INTO `genres` (`id`, `tmdb_id`, `name`) VALUES
 (2, 28, 'Action'),
 (3, 12, 'Adventure'),
@@ -95,7 +88,9 @@ INSERT INTO `genres` (`id`, `tmdb_id`, `name`) VALUES
 (35, 10752, 'War'),
 (36, 37, 'Western');
 
-
+--
+-- Table structure for table `genres_movie`
+--
 CREATE TABLE IF NOT EXISTS `genres_movie` (
   `genre_tmdb_id` int(11) NOT NULL,
   `movie_tmdb_id` int(11) NOT NULL,
@@ -103,6 +98,9 @@ CREATE TABLE IF NOT EXISTS `genres_movie` (
   KEY `movie_tmdb_id` (`movie_tmdb_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
+--
+-- Table structure for table `trailers`
+--
 CREATE TABLE `trailers` (
 `tmdb_id` INT NOT NULL ,
 `type` VARCHAR( 255 ) NOT NULL ,
@@ -141,3 +139,13 @@ CREATE TABLE IF NOT EXISTS `crews` (
   KEY `movie_id` (`movie_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=utf8;
 
+--
+-- Tabelstructuur voor tabel `logs`
+--				
+CREATE TABLE IF NOT EXISTS `logs` (
+  `id` int(11) NOT NULL auto_increment,
+  `log` varchar(255) NOT NULL,
+  `date` timestamp NOT NULL default CURRENT_TIMESTAMP,
+  PRIMARY KEY  (`id`),
+  KEY `id` (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=9892 ;
