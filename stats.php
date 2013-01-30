@@ -143,7 +143,8 @@ $(function () {// Randomly Generated Data
 		<div class="span6">
 			<h1>Most Popular Directors</h1>
 <?
-	$query = "SELECT COUNT(*) AS amount, person_id, name FROM crews WHERE job = 'Director' GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,15";
+	$show_amount_topx = SHOW_AMOUNT_TOPX;
+	$query = "SELECT COUNT(*) AS amount, person_id, name FROM crews WHERE job = 'Director' GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		echo "<p><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</p>";
@@ -153,7 +154,7 @@ $(function () {// Randomly Generated Data
 		<div class="span6">
 			<h1>Most Popular Actors</h1>
 <?
-	$query = "SELECT COUNT(*) AS amount,person_id, name FROM casts GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,15";
+	$query = "SELECT COUNT(*) AS amount,person_id, name FROM casts GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
 		echo "<p><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</p>";
