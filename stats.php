@@ -151,7 +151,7 @@ $(function () {// Randomly Generated Data
 		if(!$first){
 			$first = $d['amount'];
 		}
-		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</div></div>";
+		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".str_replace(" ", "&nbsp;", $d['name'])."</a>&nbsp;(".$d['amount'].")</div></div>";
 	}
 ?>
 		</div>
@@ -165,7 +165,7 @@ $(function () {// Randomly Generated Data
 		if(!$first){
 			$first = $d['amount'];
 		}
-		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</div></div>";
+		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".str_replace(" ", "&nbsp;", $d['name'])."</a>&nbsp;(".$d['amount'].")</div></div>";
 	}
 ?>
 		</div>
