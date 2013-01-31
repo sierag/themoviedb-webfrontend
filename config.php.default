@@ -32,6 +32,6 @@
     // Show the amount of genres by the piechart
     define("SHOW_AMOUNT_GENRES","12");
 	 	
-    // AND THE TOP X ACTORS & DIRECTORS
+    // Show the amount of Actors & Directors in the list
     define("SHOW_AMOUNT_TOPX","25");
 ?>
