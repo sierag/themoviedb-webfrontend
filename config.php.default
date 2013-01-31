@@ -1,31 +1,37 @@
 <?
-	// Database Config
-	define("DB_HOST", 'localhost');
-	define("DB_USERNAME",'');
-	define("DB_PASSWORD",'');
-	define("DB_DATABASE", '');
-	
-	// TMDB API KEY
-	define("TMDB_APIKEY",	'');
+// Database Config
+  define("DB_HOST", 'localhost');
+  define("DB_USERNAME",'');
+  define("DB_PASSWORD",'');
+  define("DB_DATABASE", '');
+
+// TMDB API KEY
+  define("TMDB_APIKEY",	'');
 	
 //SITE PROPERTIES
-	// Title of the site <title></title>
-	define("SITE_TITLE","My Movie DB, my watched and rated movies");
+  // Title of the site <title></title>
+  define("SITE_TITLE","My Movie DB");
 
-	// If you wwould like to place it in another directory or place it on a standalone url use '/' or the subdir you preffer.
-	define("SUBDIR","/movie/");
+  // If you wwould like to place it in another directory or 
+  // place it on a standalone url use '/' or the subdir you preffer.
+  define("SUBDIR","/movie/");
 	
-	// If you place you own TRACKING ID here it automaticly will place it in the footer of the website
-	define("GOOGLE_TRACKING_ID",null);
+  // If you place you own TRACKING ID here it automaticly 
+  // will place it in the footer of the website
+  define("GOOGLE_TRACKING_ID",null);
 
-	// Turn caching on for images that are situated on the tmdb. 
-	// If the TMDB would experiencing problems with there website it will mean that if you will disabeling this feature you will also.
-	// Also it bandwith friendlier for themoviedb
-	// If caching is on it will mean that you will have to count on 25mb on image footage per 300 movies.
-	define("CACHING", true);
+  // Turn caching on for images that are situated on the tmdb. 
+  // If the TMDB would experiencing problems with there website 
+  // it will mean that if you will disabeling this feature you will also.
+  // Also it bandwith friendlier for themoviedb
+  // If caching is on it will mean that you will have to count 
+  // on 25mb on image footage per 300 movies.
+  define("CACHING", true);
 
-	// STATISTICS PAGE
-		// Show the amount of genres by the piechart
-		define("SHOW_AMOUNT_GENRES","12");
-
+  // STATISTICS PAGE
+    // Show the amount of genres by the piechart
+    define("SHOW_AMOUNT_GENRES","12");
+	 	
+    // Show the amount of Actors & Directors in the list
+    define("SHOW_AMOUNT_TOPX","25");
 ?>
