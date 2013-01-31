@@ -21,9 +21,9 @@ require_once('header.php');
 			?></div><div class="row-fluid"><?
 
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60)."<br><span>Hours spent watching movies</span></h1></div>";
-			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60)."<br><span>Days watched</span></h1></div>";				
-			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/7,2)."<br><span>Week(s) watched</span></h1></div>";
-			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/60/30,2)."<br><span>Month(s) watched</span></h1></div>";
+			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/24)."<br><span>Days watched</span></h1></div>";				
+			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/24/7,2)."<br><span>Week(s) watched</span></h1></div>";
+			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60/24/30,2)."<br><span>Month(s) watched</span></h1></div>";
 		};
 	}
 	?>
@@ -140,23 +140,31 @@ $(function () {// Randomly Generated Data
 </script>
 <div class="container">
 	<div class="row-fluid">
-		<div class="span6">
+		<div class="span5">
 			<h1>Most Popular Directors</h1>
 <?
 	$query = "SELECT COUNT(*) AS amount, person_id, name FROM crews WHERE job = 'Director' GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,15";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	$first = false;
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		echo "<p><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</p>";
+		if(!$first){
+			$first = $d['amount'];
+		}
+		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</div></div>";
 	}
 ?>
 		</div>
-		<div class="span6">
+		<div class="span5 offset1">
 			<h1>Most Popular Actors</h1>
 <?
 	$query = "SELECT COUNT(*) AS amount,person_id, name FROM casts GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,15";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	$first = false;
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		echo "<p><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</p>";
+		if(!$first){
+			$first = $d['amount'];
+		}
+		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".$d['name']."</a> (".$d['amount'].")</div></div>";
 	}
 ?>
 		</div>
