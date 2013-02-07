@@ -17,7 +17,7 @@ require_once('header.php');
 			echo "<div class='span3'><h1 class='amount'>". round($r['avg']/10,2)."<br><span>Average Rating</span></h1></div>";
 			echo "<div class='span3'><h1 class='amount'>". round($r['max']/10,2)."<br><span>Maximum Rating</span></h1></div>";
 			echo "<div class='span3'><h1 class='amount'>". round($r['min']/10,2)."<br><span>Minimum Rating</span></h1></div>";
-			echo "<div class='span3'><h1 class='amount'>". round($r['total'],2)."<br><span>Seen Movies</span></h1></div>";
+			echo "<div class='span3'><h1 class='amount'>". round($r['total'],2)."<br><span>Movies Rated</span></h1></div>";
 			?></div><div class="row-fluid"><?
 
 			echo "<div class='span3'><h1 class='amount'>". round($r['runtime']/60)."<br><span>Hours spent watching movies</span></h1></div>";
@@ -166,6 +166,29 @@ $(function () {// Randomly Generated Data
 			$first = $d['amount'];
 		}
 		echo "<div class='progress'><div class='bar' style='width:".(( $d["amount"] / $first ) * 100 )."%;'><a href='".SUBDIR."person/".$d['person_id']."'>".str_replace(" ", "&nbsp;", $d['name'])."</a>&nbsp;(".$d['amount'].")</div></div>";
+	}
+?>
+		</div>
+	</div>
+	<div class="row-fluid">
+		<div class="span5">
+			<h1>Highest Rated Movies</h1>
+<?
+	$show_amount_topx = SHOW_AMOUNT_TOPX;
+	$query = "SELECT original_title, url, rating FROM movies WHERE rating = (SELECT MAX(rating) FROM `movies` WHERE rating > 10)";
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		echo "<a href='".SUBDIR.$d['url']."'>".str_replace(" ", "&nbsp;", $d['original_title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
+	}
+?>
+		</div>
+		<div class="span5 offset1">
+			<h1>Lowest Rated Movies</h1>
+<?
+	$query = "SELECT original_title, url, rating FROM movies WHERE rating = (SELECT MIN(rating) FROM `movies` WHERE rating > 10)";
+	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
+		echo "<a href='".SUBDIR.$d['url']."'>".str_replace(" ", "&nbsp;", $d['original_title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
 	}
 ?>
 		</div>
