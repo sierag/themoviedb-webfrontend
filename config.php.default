@@ -1,4 +1,7 @@
 <?
+// for installation
+  define("INSTALLED", 'false');
+
 // Database Config
   define("DB_HOST", 'localhost');
   define("DB_USERNAME",'');
@@ -7,6 +10,8 @@
 
 // TMDB API KEY
   define("TMDB_APIKEY",	'');
+
+  define("TMDB_USERNAME",	'');	
 	
 //SITE PROPERTIES
   // Title of the site <title></title>

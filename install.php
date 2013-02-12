@@ -1,203 +1,149 @@
 <?php
+/**
+ * WordPress Installer
+ *
+ * @package WordPress
+ * @subpackage Administration
+ */
+
+// Sanity check.
+if ( false ) {
+?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Error: PHP is not running</title>
+</head>
+<body class="wp-core-ui">
+	<h1 id="logo"><a href="http://wordpress.org/">WordPress</a></h1>
+	<h2>Error: PHP is not running</h2>
+	<p>WordPress requires that your web server is running PHP. Your server does not have PHP installed, or PHP is turned off.</p>
+</body>
+</html>
+<?php
+}
+
+if(!file_exists( dirname( __FILE__ ) . '/config.php')) {
+	if(!copy(dirname( __FILE__ ) . "/config.php.default", dirname( __FILE__ ) . "/config.php")) {
+		die('could not move the config.php.default to config.php, please do this manualy.');
+	}
+}
+
 require_once('config.php');
-require_once('db.php');
 require_once('functions.php');
-require_once('TMDb-PHP-API/TMDb.php');
 require_once('header.php');
 ?>
+<div class="wizard" id="wizard-demo">
+	<h1><? if(INSTALLED) { ?>Installation<? } else {?>Configuration<? } ?>: <?=truncate(SITE_TITLE,30);?></h1>
 
-		<style type="text/css">
-	        .wizard-modal p {
-	        	margin: 0 0 10px;
-	        	padding: 0;
-	        }
-	        
-			#wizard-ns-detail-servers, .wizard-additional-servers {
-				font-size:12px;
-				margin-top:10px;
-				margin-left:15px;
-			}
-			#wizard-ns-detail-servers > li, .wizard-additional-servers li {
-				line-height:20px;
-				list-style-type:none;
-			}
-			#wizard-ns-detail-servers > li > img {
-				padding-right:5px;
-			}
-			
-			.wizard-modal .chzn-container .chzn-results {
-				max-height:150px;
-			}
-			.wizard-addl-subsection {
-				margin-bottom:40px;
-			}
-		</style>
-	
-		<div class="wizard" id="wizard-demo">
-			<h1>Config: <?=truncate(SITE_TITLE,30);?></h1>
-		
-			<div class="wizard-card" data-onValidated="setServerName" data-cardname="name">
-				<h3>Database</h3>
-				<p>MySQL settings - You can get this info from your web host</p>	
-				<div class="wizard-input-section">
-					<div class="control-group">
-						<input id="databasename" type="text" placeholder="Database Name" value="<?=DB_DATABASE?>" data-validate="" />
-					</div>
-					<div class="control-group">
-						<input id ="databaseusername" type="text" placeholder="Username" value="<?=DB_USERNAME?>" data-validate="" />
-					</div>
-					<div class="control-group">
-						<input id ="databasepassword" type="password" placeholder="Password" value="<?=DB_PASSWORD?>" data-validate="" />
-					</div>
-					<div class="control-group">
-						<input id ="databasehost" type="text" placeholder="Host" value="<?=DB_HOST?>" data-validate="" />
-					</div>
-				</div>
+	<div class="wizard-card" data-onValidated="setServerName" data-cardname="name">
+		<h3>MySQL Database</h3>
+		<p>If you don't have your database info you can get this from your web host</p>	
+		<div class="wizard-input-section">
+			<div class="control-group">
+				<input id="databasename" type="text" placeholder="Database Name" value="<?=DB_DATABASE?>" data-validate="" />
 			</div>
-		
-			<div class="wizard-card" data-cardname="tmdb">
-				<h3>TMdb</h3>
-				<div class="alert hide">
-					It's recommended that you select at least one
-					service, like ping.
-				</div>
-				<div class="wizard-input-section">
-					<div class="control-group">
-						<input id="tmdbapikey" type="text" placeholder="TMdb API Key" value="<?=TMDB_APIKEY?>" data-validate="validateAPIkey" />
-					</div>
-				</div>
+			<div class="control-group">
+				<input id ="databaseusername" type="text" placeholder="Username" value="<?=DB_USERNAME?>" data-validate="" />
 			</div>
-		
-			<div class="wizard-card" data-cardname="services">
-				<h3>Site Settings</h3>
-				<div class="alert hide">
-					It's recommended that you select at least one
-					service, like ping.
-				</div>
-		
-				<div class="wizard-input-section">
-					<div class="control-group">
-						<input id="sitetile" type="text" placeholder="Website title" value="<?=SITE_TITLE?>" data-validate="" />
-					</div>
-				</div>
+			<div class="control-group">
+				<input id ="databasepassword" type="password" placeholder="Password" value="" data-validate="" />
 			</div>
-
-				
-			<div class="wizard-card" data-onload="" data-cardname="caching">
-				<h3>Caching</h3>
-		
-				<div class="wizard-input-section">
-					<p>
-						We determined <strong>Chicago</strong> to be
-						the closest location to monitor
-						<strong class="create-server-name"></strong>
-						If you would like to change this, or you think this is
-						incorrect, please select a different
-						monitoring location.
-					</p>
-		
-					<select data-placeholder="Service List" style="width:350px;"
-						class="chzn-select create-server-service-list">		
-		                <option value="true">Turn on</option>
-		                <option value="false">Turn off</option>
-		            </select>		
-				</div>
+			<div class="control-group">
+				<input id ="databasehost" type="text" placeholder="Host" value="<?=DB_HOST?>" data-validate="" />
 			</div>
-				
-		
-			<div class="wizard-card">
-				<h3>Statistics</h3>
-		
-				<div class="wizard-input-section">
-					<p>The <a target="_blank" href="http://www.panopta.com/support/knowledgebase/support-questions/how-do-i-install-the-panopta-monitoring-agent/">Panopta Agent</a> allows
-						you to monitor local resources (disk usage, cpu usage, etc).
-						If you would like to set that up now, please download
-						and follow the <a target="_blank" href="http://www.panopta.com/support/knowledgebase/support-questions/how-do-i-install-the-panopta-monitoring-agent/">install instructions.</a>
-					</p>
-		
-		
-					<div class="btn-group">
-						<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-							Download
-							<span class="caret"></span>
-						</a>
-						<ul class="dropdown-menu">
-							<li><a href="#">.rpm</a></li>
-							<li><a href="#">.deb</a></li>
-							<li><a href="#">.tar.gz</a></li>
-						</ul>
-					</div>
-		
-				</div>
-		
-		
-				<div class="wizard-input-section">
-					<p>You will be given a server key after you install the Agent
-						on <strong class="create-server-name"></strong>.
-						If you know your server key now, please enter it
-						below.</p>
-		
-					<div class="control-group">
-						<input type="text" class="create-server-agent-key"
-							placeholder="Server key (optional)" data-validate="" />
-					</div>
-				</div>
-			</div>
-		
-			<div class="wizard-card" data-cardname="services">
-				<h3>Google Analytics</h3>
-				<div class="alert hide">
-					It's recommended that you select at least one
-					service, like ping.
-				</div>
-		
-				<div class="wizard-input-section">
-					<p>
-						Please choose the services you'd like Panopta to
-						monitor.  Any service you select will be given a default
-						check frequency of 1 minute.
-					</p>
-		
-					<select data-placeholder="Service List" style="width:350px;"
-						class="chzn-select create-server-service-list" multiple>		
-		                <option value="true">Turn on</option>
-		                <option value="false">Turn off</option>
-		            </select>
-				</div>
-			</div>		
-		
-			<div class="wizard-error">
-				<div class="alert alert-error">
-					<strong>There was a problem</strong> with your submission.
-					Please correct the errors and re-submit.
-				</div>
-			</div>
-		
-			<div class="wizard-failure">
-				<div class="alert alert-error">
-					<strong>There was a problem</strong> submitting the form.
-					Please try again in a minute.
-				</div>
-			</div>
-		
-			<div class="wizard-success">
-				<div class="alert alert-success">
-					<span class="create-server-name"></span>
-					was created <strong>successfully.</strong>
-				</div>
-		
-				<a class="btn create-another-server">Create another server</a>
-				<span style="padding:0 10px">or</span>
-				<a class="btn im-done">Done</a>
-			</div>
-		
 		</div>
+	</div>
+
+	<div class="wizard-card" data-cardname="tmdb">
+		<h3>TMdb</h3>
+		<div class="alert hide">
+			It's recommended that you select at least one service, like ping.
+		</div>
+		<p>Your TMdb username is required so that no other user wil be updating your personal movie information</p>
+		<div class="wizard-input-section">
+			<div class="control-group">
+				<input  id="tmdbusername" type="text" placeholder="TMdb Username" class="span2" value="<?=TMDB_USERNAME?>" maxlength="32" cols="32" data-validate="validateAPIkey" />
+			</div>
+		</div>
+		<p>To register for an API key, head into your <a href="https://www.themoviedb.org/account" target="_blank">account page</a> on The Movie Database and generate a new key from within the "API Details" section.</p>
+		<div class="wizard-input-section">
+			<div class="control-group">
+				<input  id="tmdbapikey" type="text" placeholder="TMdb API Key" class="span4" value="<?=TMDB_APIKEY?>" maxlength="32" cols="32" data-validate="validateAPIkey" />
+			</div>
+		</div>
+	</div>
+
+	<div class="wizard-card" data-cardname="services">
+		<h3>Site Settings</h3>
+		<p>Website title, displayed on screen and in the code.</p>
+		<div class="alert hide">
+			It's recommended that you select at least one
+			service, like ping.
+		</div>
+		<div class="wizard-input-section">
+			<div class="control-group">
+				<input id="sitetile" type="text" placeholder="Website title" value="<?=SITE_TITLE?>" data-validate="" />
+			</div>
+		</div>
+	</div>
+
+		
+	<div class="wizard-card" data-onload="" data-cardname="caching">
+		<h3>Caching</h3>
+		<div class="wizard-input-section">
+			<p>To make sure this website works stand alone (frontpage & movie details) without the CDN's of TMdb, please turn caching on. Also it will be more bandwidth friendly towards TMdb.
+			</p>
+			<div class="switch">
+				<input type="checkbox" <?if(CACHING){?>checked<?}?>>
+			</div>
+		</div>
+	</div>
+		
+	<div class="wizard-card">
+		<h3>Statistics</h3>		
+		<div class="wizard-input-section">
+			<p>Show the amount of genres by the piechart</p>
+			<input  id="SHOW_AMOUNT_GENRES" type="number" placeholder="15" class="span1" value="<?=SHOW_AMOUNT_GENRES?>" maxlength="2" cols="2" />
+			<p>Show the amount of Actors & Directors in the list</p>
+			<input  id="SHOW_AMOUNT_TOPX" type="number" placeholder="20" class="span1" value="<?=SHOW_AMOUNT_TOPX?>" maxlength="2" cols="2" />
+		</div>
+	</div>
+
+	<div class="wizard-card" data-cardname="services">
+		<h3>Google Analytics</h3>
+		<div class="alert hide">
+			It's recommended that you select at least one service, like ping.
+		</div>
+
+		<div class="wizard-input-section">
+			<p>If you place you own TRACKING ID here it automaticly will place it in the footer of the website.</p>
+			<input  id="GOOGLE_TRACKING_ID" type="text" placeholder="UA-263097-7" class="span2" value="<?=GOOGLE_TRACKING_ID?>" maxlength="12" cols="12" />
+		</div>
+	</div>		
+
+	<div class="wizard-error">
+		<div class="alert alert-error">
+			<strong>There was a problem</strong> with your submission. Please correct the errors and re-submit.
+		</div>
+	</div>
+		
+	<div class="wizard-success">
+		<div class="alert alert-success">
+			<span class="create-server-name"></span>
+			was created <strong>successfully.</strong>
+		</div>
+		<a class="btn im-done">Done</a>
+	</div>		
+</div>
 
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/bootstrap-wizard.js"></script>
 <script src="js/jquery.lazyload.js"></script>
 <script src="js/functions.js"></script>
+<script src="js/jquery.switch.js"></script>
 <script type="text/javascript">
 
 function setServerName(card) {
@@ -266,9 +212,9 @@ function fqdn_or_ip(el) {
 	return ret;
 }
 
-
 $(function() {
-	$.fn.wizard.logging = true;
+
+	$.fn.wizard.logging = false;
 	
 	var wizard = $("#wizard-demo").wizard();
 
@@ -286,8 +232,15 @@ $(function() {
 	});
 
 	wizard.on("submit", function(wizard) {
+		
+		$("#databasename").val();
+		$("#databaseusername").val();
+		$("#databasepassword").val();
+		$("#databasehost").val();
+		
+		/*
 		var submit = {
-			"hostname": $("#new-server-fqdn").val()
+			"hostname": 
 		};
 
 		setTimeout(function() {
@@ -297,13 +250,9 @@ $(function() {
 			wizard.showSubmitCard("success");
 			wizard._updateProgressBar(0);
 		}, 2000);
+		*/
 	});
 
-	wizard.on("reset", function(wizard) {
-		wizard.setSubtitle("");
-		wizard.el.find("#new-server-fqdn").val("");
-		wizard.el.find("#new-server-name").val("");
-	});
 
 	wizard.el.find(".wizard-success .im-done").click(function() {
 		wizard.reset().close();
@@ -316,11 +265,8 @@ $(function() {
 	$(".wizard-group-list").click(function() {
 		alert("Disabled for demo.");
 	});
-	
-	
+
 	wizard.show();
 });
-
-</script>
-		
+</script>	
 <? require_once("footer.php")?>

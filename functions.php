@@ -1,5 +1,11 @@
-<? session_start(); ?>
-<?
+<? session_start(); 
+
+$page = SUBSTR(strrchr($_SERVER["REQUEST_URI"],'/'),1);
+if($page <> "install.php" && !file_exists( dirname( __FILE__ ) . '/config.php' )){
+	header("location: install.php");
+	die();
+}	
+
 function timer($runtime) { 
 	$hours =  floor($runtime/60); // No. of mins/60 to get the hours and round down
 	$mins =   $runtime % 60; // No. of mins/60 - remainder (modulus) is the minutes
@@ -8,6 +14,11 @@ function timer($runtime) {
 
 function isloggedin(){
 	return isset($_SESSION['tmdb_username']);
+}
+
+function updatesite($db_name,$db_host,$db_username,$db_password) {
+	
+	
 }
 
 function sanitize($string, $force_lowercase = true, $anal = false) {
