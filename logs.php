@@ -13,7 +13,7 @@ if(!isloggedin()){header('location SUBDIR');}
         	</ul>
 	</div>
 	<div class="span9">
-		<h2>Logs</h2>
+		<h2>Logs (last 250 entries)</h2>
 		<table>
 		<thead>
 			<th>Inserted</th>
@@ -21,7 +21,7 @@ if(!isloggedin()){header('location SUBDIR');}
 		</thead>
 		<tbody>
 		<?
-		$query = "SELECT * from logs order by id desc";	
+		$query = "SELECT * from logs order by id desc LIMIT 0, 250";	
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 		while ($row = mysql_fetch_assoc($result)) {
 			?>

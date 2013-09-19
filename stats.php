@@ -144,7 +144,8 @@ $(function () {// Randomly Generated Data
 			<h1>Most Popular Directors</h1>
 <?
 	$show_amount_topx = SHOW_AMOUNT_TOPX;
-	$query = "SELECT COUNT(*) AS amount, person_id, name FROM crews WHERE job = 'Director' GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
+	$query = "SELECT COUNT(*) AS amount, c.person_id, c.name FROM crews AS c, movies AS m WHERE c.job = 'Director' AND c.movie_id = m.tmdb_id AND m.rating > 0 GROUP BY c.name, c.person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
+	// $query = "SELECT COUNT(*) AS amount, person_id, name FROM crews WHERE job = 'Director' GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	$first = false;
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
@@ -158,7 +159,8 @@ $(function () {// Randomly Generated Data
 		<div class="span5 offset1">
 			<h1>Most Popular Actors</h1>
 <?
-	$query = "SELECT COUNT(*) AS amount,person_id, name FROM casts GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
+	$query = "SELECT COUNT(*) AS amount, c.person_id, c.name FROM casts AS c, movies AS m WHERE c.movie_id = m.tmdb_id AND m.rating > 0 GROUP BY c.name, c.person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
+	// $query = "SELECT COUNT(*) AS amount,person_id, name FROM casts GROUP BY name,person_id ORDER BY amount DESC LIMIT 0,$show_amount_topx ";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	$first = false;
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
