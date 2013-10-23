@@ -110,7 +110,7 @@ $url = $r["url"];
 	}
 	?>
 	<?
-			$nextprev = "SELECT * FROM `movies` WHERE rating > 10 ORDER BY release_date desc";
+			$nextprev = "SELECT * FROM `movies` WHERE rating >= 10 ORDER BY release_date desc";
 //			$nextprev = "SELECT * FROM `movies` ORDER BY release_date desc";
 			$nextprevr = mysql_query($nextprev) or die('Query failed: ' . mysql_error());
 			$next = false;
@@ -134,7 +134,7 @@ $url = $r["url"];
 				<i class="icon-step-backward"></i>
 			<? } ?>
 			<?
-			$rand = "SELECT * FROM `movies` WHERE rating > 10  ORDER BY RAND() LIMIT 0,1";
+			$rand = "SELECT * FROM `movies` WHERE rating >= 10  ORDER BY RAND() LIMIT 0,1";
 			$randresult = mysql_query($rand) or die('Query failed: ' . mysql_error());
 			while ($rand = mysql_fetch_array($randresult, MYSQL_ASSOC)) { 
 			?>
@@ -274,7 +274,7 @@ if(isset($_GET["sort"])) {
 	}
 }
 
-$query = "SELECT * from movies WHERE rating > 10 order by ".$sort." ".$ascdesc . " ";	
+$query = "SELECT * from movies WHERE rating >= 10 order by ".$sort." ".$ascdesc . " ";	
 $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 
 ?>
