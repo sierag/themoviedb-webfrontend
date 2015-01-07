@@ -84,7 +84,8 @@ a:hover{ color:#94e0ff;}
 
 
 .progress {
-height:24px;
+height:18px;
+margin-bottom: 10px;
 background-color: #222;
 background-image: -moz-linear-gradient(top, #000, #222);
 background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#000), to(#222));
@@ -98,8 +99,8 @@ box-shadow: inset 0 -1px 2px rgba(255, 255, 255, 0.1);
 }
 
   .progress .bar {
-height:24px;
-line-height:24px;
+height:	18px;
+line-height:18px;
 font-size:13px;
 text-align: left;
 text-indent:10px;
