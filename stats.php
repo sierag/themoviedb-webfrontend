@@ -7,7 +7,7 @@ require_once('header.php');
 <div class="container">
 	<div class="row-fluid">
 	<?	
-	$query = "SELECT AVG(rating) as avg, MAX(rating) as max, MIN(rating) as min, COUNT(id) as total, SUM(runtime) as runtime FROM `movies` WHERE rating > 10";
+	$query = "SELECT AVG(rating) as avg, MAX(rating) as max, MIN(rating) as min, COUNT(id) as total, SUM(runtime) as runtime FROM `movies` WHERE rating >= 10";
 	
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	if(mysql_num_rows($result)==0){
@@ -34,7 +34,7 @@ require_once('header.php');
 			<?
 				
 			$query = "SELECT g.name, count(*) AS genrecount FROM genres_movie gm INNER JOIN genres g ON g.tmdb_id = gm.genre_tmdb_id WHERE gm.movie_tmdb_id IN (
-	SELECT tmdb_id FROM movies WHERE rating > 10
+	SELECT tmdb_id FROM movies WHERE rating >= 10
 )
 GROUP BY gm.genre_tmdb_id ORDER BY genrecount desc";
 				
@@ -78,7 +78,7 @@ GROUP BY gm.genre_tmdb_id ORDER BY genrecount desc";
 		<div class="span8">
 			<?
 			// YEAR
-			$q = "SELECT count(id) as myamount, EXTRACT(YEAR FROM release_date) myyear FROM `movies` where rating > 10 AND release_date > '0000-00-00' GROUP BY myyear order by myyear asc";
+			$q = "SELECT count(id) as myamount, EXTRACT(YEAR FROM release_date) myyear FROM `movies` where rating >= 10 AND release_date > '0000-00-00' GROUP BY myyear order by myyear asc";
 			$y = mysql_query($q) or die('Query failed: ' . mysql_error());
 			$firstyear = date("Y");
 			$lastyear = 0;

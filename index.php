@@ -3,7 +3,6 @@ require_once('functions.php');
 require_once('config.php');
 require_once('db.php');
 require_once('header.php');
-
 if(isset($_GET["url"])){
 	$id = $_GET["url"];
 	$query = "SELECT * from movies where url = '$id'";
@@ -24,7 +23,7 @@ $url = $r["url"];
 								<img src="image.php?url=<?=urlencode($r["poster_path_w185"])?>">
 							</a>
 						</div>
-						<div class="title"><?=$r["title"]?> <span class="year"><?=substr($r["release_date"],0,4)?></span>
+						<div class="title"><?=h(utf8_decode($r["original_title"]));?> <span class="year"><?=substr($r["release_date"],0,4)?></span>
 						
 						</div>
 						<p><?=timer($r["runtime"])?></p>
@@ -50,7 +49,7 @@ $url = $r["url"];
 							</div>
 						<div class="trailer_complement">
 							<div class="movie_plot">
-								<p><?=$r["overview"]?></p>
+								<p><?=h($r["overview"]);?></p>
 							</div>
 						</div>
 						<div class="clear"></div>
@@ -296,7 +295,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			<a href="<?=$r["url"]?>">
 				<img src="img/mymoviedb.jpg" data-original="image.php?url=<?=urlencode($r["backdrop_path_w342"])?>" width="100%" alt="" />
 				<div class="title">
-					<?=truncate($r["title"],20,' ','..')?> 
+					<?=h(truncate($r["title"],20,' ','..'))?> 
 					<span class="year" style='float:left'>
 						<?=substr($r["release_date"],0,4)?>
 					</span> 

@@ -35,6 +35,10 @@ function sanitize($string, $force_lowercase = true, $anal = false) {
         $clean;
 }
 
+function h($input) {
+	return htmlentities($input);
+}
+
 function logg($desc) {
 	$desc = mysql_real_escape_string($desc);
 	$query = "INSERT INTO logs (log)VALUES('".$desc."')";

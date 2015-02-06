@@ -2,7 +2,9 @@ body { padding:0px;margin:0px;font-family: 'Lato', sans-serif;background-color: 
 .title { font-size: 2em;line-height: 1.3em; }
 .year { font-size: 0.8em;opacity: 0.5 }
 .movie_content { position:absolute;background-color: black;margin-top: 20%; border-radius: 10px;opacity:.8;width:500px;padding:2%;min-height:300px;color:white;box-shadow: 0px 0px 40px #ccc}
+.person_content { position:absolute;background-color: black;margin-top: 20%; border-radius: 10px;opacity:.8;width:1000px;padding:2%;min-height:300px;color:white;box-shadow: 0px 0px 40px #ccc}
 .movie_poster {margin:5% 5% 10% 10%; float:right;box-shadow: 0px 0px 1px white;border:1px solid black}
+.person_profile {box-shadow: 0px 0px 1px white;border:1px solid black; margin: 10% 0% 5% 0%}
 .clear { clear:both}
 .movie_rating_stars { display: inline-block; width: 110px; font-size: 0.8em }
 .movie_rating_value { display: inline-block; width: 20px }
