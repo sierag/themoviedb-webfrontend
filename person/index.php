@@ -17,7 +17,7 @@ $person = $tmdb->getPerson($id);
 		<div class="span3">
 <?
 echo "<img src=\"".$tmdb->getImageUrl($person['profile_path'],'profile', 'w185')."\" class=\"person_profile\" width=\"100%\">\n";
-echo "<strong>Born:</strong><br />".$person['birthday']." - ".$person['place_of_birth'];
+echo "<strong>Born:</strong><br />".$person['birthday']." in ".$person['place_of_birth'];
 if ($person['deathday'] != "") {
 	echo "<br /><strong>Died:</strong><br />".$person['deathday'];
 }
@@ -40,7 +40,7 @@ while ($row = mysql_fetch_array($result)) {
 	$films[]= $row;
 }
 
-echo "<h2>Movies seen (as actor)</h2>";
+echo "<h2>Movies Seen (as actor)</h2>";
 if (count($films) > 0 ) {
 	echo "<table>\n";
 	foreach ($films as $movie) {
@@ -67,7 +67,7 @@ while ($row = mysql_fetch_array($result)) {
 	$films[]= $row;
 }
 
-echo "<h2>Movies seen (as director)</h2>";
+echo "<h2>Movies Seen (as director)</h2>";
 if (count($films) > 0 ) {
 	echo "<table>\n";
 	foreach ($films as $movie) {

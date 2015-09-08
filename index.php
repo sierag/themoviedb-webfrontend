@@ -295,7 +295,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			<a href="<?=$r["url"]?>">
 				<img src="img/mymoviedb.jpg" data-original="image.php?url=<?=urlencode($r["backdrop_path_w342"])?>" width="100%" alt="" />
 				<div class="title">
-					<?=h(truncate($r["title"],20,' ','..'))?> 
+					<?=truncate($r["title"],20,' ','..')?> 
 					<span class="year" style='float:left'>
 						<?=substr($r["release_date"],0,4)?>
 					</span> 
