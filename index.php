@@ -3,6 +3,17 @@ require_once('functions.php');
 require_once('config.php');
 require_once('db.php');
 require_once('header.php');
+
+// Temporary code to fix incomplete new database imports
+/* require_once('TMDb-PHP-API/TMDb.php');
+$query = "SELECT * from movies where title = '' LIMIT 50";
+$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+$tmdb = new TMDb(TMDB_APIKEY);
+while ($r = mysql_fetch_array($result, MYSQL_ASSOC)) {
+	addedit($tmdb, intval($r['tmdb_id']), 'watchlist');	
+}
+*/
+
 if(isset($_GET["url"])){
 	$id = $_GET["url"];
 	$query = "SELECT * from movies where url = '$id'";
@@ -23,7 +34,7 @@ $url = $r["url"];
 								<img src="image.php?url=<?=urlencode($r["poster_path_w185"])?>">
 							</a>
 						</div>
-						<div class="title"><?=h(utf8_decode($r["original_title"]));?> <span class="year"><?=substr($r["release_date"],0,4)?></span>
+						<div class="title"><?=htmlentities($r["original_title"]);?> <span class="year"><?=substr($r["release_date"],0,4)?></span>
 						
 						</div>
 						<p><?=timer($r["runtime"])?></p>
@@ -49,7 +60,7 @@ $url = $r["url"];
 							</div>
 						<div class="trailer_complement">
 							<div class="movie_plot">
-								<p><?=h($r["overview"]);?></p>
+								<p><?=utf8_encode($r["overview"]);?></p>
 							</div>
 						</div>
 						<div class="clear"></div>
@@ -69,11 +80,12 @@ $url = $r["url"];
 					if ($i > 0) {
         	                	        print ", ";
                 	        	}
-                        		print "<a href='person/".$d["person_id"]."'>" . $d["name"]. "</a><br />";
+                        		print "<a href='person/".$d["person_id"]."'>" . $d["name"]. "</a>\n";
                         		$i++;	
 				}
 			}
 			?>
+			<br />
 			<?
 			$query = "SELECT * from trailers where tmdb_id = ".$r["tmdb_id"]."";
 			$trailers = mysql_query($query) or die('Query failed: ' . mysql_error());
@@ -295,7 +307,7 @@ $result = mysql_query($query) or die('Query failed: ' . mysql_error());
 			<a href="<?=$r["url"]?>">
 				<img src="img/mymoviedb.jpg" data-original="image.php?url=<?=urlencode($r["backdrop_path_w342"])?>" width="100%" alt="" />
 				<div class="title">
-					<?=truncate($r["title"],20,' ','..')?> 
+					<?=utf8_encode(truncate($r["title"],20,' ','..'))?> 
 					<span class="year" style='float:left'>
 						<?=substr($r["release_date"],0,4)?>
 					</span> 

@@ -177,30 +177,31 @@ $(function () {// Randomly Generated Data
 			<h1>Highest Rated Movies</h1>
 <?
 	$show_amount_topx = SHOW_AMOUNT_TOPX;
-	$query = "SELECT original_title, url, rating FROM movies WHERE rating = (SELECT MAX(rating) FROM `movies` WHERE rating >= 10)";
+	$query = "SELECT title, url, rating FROM movies WHERE rating = (SELECT MAX(rating) FROM `movies` WHERE rating >= 10)";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	if (mysql_num_rows($result) < 5) {
 		// Do different query if less than 5 results (otherwise it's boring)
-		$query = "SELECT original_title, url, rating FROM movies WHERE rating >= 10 ORDER BY rating DESC LIMIT 0,5";
+		$query = "SELECT title, url, rating FROM movies WHERE rating >= 10 ORDER BY rating DESC LIMIT 0,5";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		echo "<a href='".SUBDIR.$d['url']."'>".str_replace(" ", "&nbsp;", $d['original_title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
+		echo "<a href='".SUBDIR.$d['url']."'>".htmlentities($d['title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
 	}
 ?>
 		</div>
 		<div class="span5 offset1">
 			<h1>Lowest Rated Movies</h1>
 <?
-	$query = "SELECT original_title, url, rating FROM movies WHERE rating = (SELECT MIN(rating) FROM `movies` WHERE rating >= 10)";
+	$query = "SELECT title, url, rating FROM movies WHERE rating = (SELECT MIN(rating) FROM `movies` WHERE rating >= 10)";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	if (mysql_num_rows($result) < 5) {
 		// Do different query if less than 5 results (otherwise it's boring)
-		$query = "SELECT original_title, url, rating FROM movies WHERE rating >= 10 ORDER BY rating LIMIT 0,5";
+		$query = "SELECT title, url, rating FROM movies WHERE rating >= 10 ORDER BY rating LIMIT 0,5";
 		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
 	}
 	while ($d = mysql_fetch_array($result, MYSQL_ASSOC)) {
-		echo "<a href='".SUBDIR.$d['url']."'>".str_replace(" ", "&nbsp;", $d['original_title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
+//		echo "<a href='".SUBDIR.$d['url']."'>".str_replace(" ", "&nbsp;", $d['original_title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
+		echo "<a href='".SUBDIR.$d['url']."'>".htmlentities($d['title'])."</a>&nbsp;(".($d['rating']/10).")<br />";
 	}
 ?>
 		</div>

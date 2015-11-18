@@ -21,19 +21,20 @@ function updatesite($db_name,$db_host,$db_username,$db_password) {
 	
 }
 
-function sanitize($string, $force_lowercase = true, $anal = false) {
+function sanitize($string, $force_lowercase = true, $anal = true) {
     $strip = array("~", "`", "!", "@", "#", "$", "%", "^", "&", "*", "(", ")", "_", "=", "+", "[", "{", "]",
                    "}", "\\", "|", ";", ":", "\"", "'", "&#8216;", "&#8217;", "&#8220;", "&#8221;", "&#8211;", "&#8212;",
                    "â€”", "â€“", ",", "<", ".", ">", "/", "?");
     $clean = trim(str_replace($strip, "", strip_tags($string)));
     $clean = preg_replace('/\s+/', "-", $clean);
-    $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "", $clean) : $clean ;
+    $clean = ($anal) ? preg_replace("/[^a-zA-Z0-9]/", "-", $clean) : $clean ;
     return ($force_lowercase) ?
         (function_exists('mb_strtolower')) ?
             mb_strtolower($clean, 'UTF-8') :
             strtolower($clean) :
         $clean;
 }
+
 
 function h($input) {
 	return htmlentities($input);
@@ -103,27 +104,31 @@ function addeditcastcrew($tmdb, $tmdb_id) {
 	// Add/update crew
 	$query = "DELETE from crews where movie_id = ".$tmdb_id."";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	foreach ($crew["crew"] as $c) {
-		$c['name'] = preg_replace("/'/", "\\'", $c['name']);
-		$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
-		$c['job'] = preg_replace("/'/", "\\'", $c['job']);
-		$c['job'] = preg_replace("/\"/", "\\\"", $c['job']);
-		$query = "INSERT INTO `crews` (person_id, movie_id, name, job, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["job"]."','".$c["profile_path"]."')";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		logg("new crew person added {$c['name']}");
+	if (count($crew["crew"]) > 0) {
+		foreach ($crew["crew"] as $c) {
+			$c['name'] = preg_replace("/'/", "\\'", $c['name']);
+			$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
+			$c['job'] = preg_replace("/'/", "\\'", $c['job']);
+			$c['job'] = preg_replace("/\"/", "\\\"", $c['job']);
+			$query = "INSERT INTO `crews` (person_id, movie_id, name, job, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["job"]."','".$c["profile_path"]."')";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			logg("new crew person added {$c['name']}");
+		}
 	}
 
 	// Add/update cast
 	$query = "DELETE from casts where movie_id = ".$tmdb_id."";
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	foreach ($crew["cast"] as $c) {
-		$c['name'] = preg_replace("/'/", "\\'", $c['name']);
-		$c['character'] = preg_replace("/'/", "\\'", $c['character']);
-		$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
-		$c['character'] = preg_replace("/\"/", "\\\"", $c['character']);
-		$query = "INSERT INTO `casts` (person_id, movie_id, name, character_name, ordered, cast_id, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["character"]."',".$c["order"].",".$c["cast_id"].",'".$c["profile_path"]."')";
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-		logg("new cast person added {$c['name']}");
+	if (count($crew["cast"]) > 0) {
+		foreach ($crew["cast"] as $c) {
+			$c['name'] = preg_replace("/'/", "\\'", $c['name']);
+			$c['character'] = preg_replace("/'/", "\\'", $c['character']);
+			$c['name'] = preg_replace("/\"/", "\\\"", $c['name']);
+			$c['character'] = preg_replace("/\"/", "\\\"", $c['character']);
+			$query = "INSERT INTO `casts` (person_id, movie_id, name, character_name, ordered, cast_id, profile_path) VALUES (".$c["id"]. ",$tmdb_id,'".$c["name"]."','".$c["character"]."',".$c["order"].",".$c["cast_id"].",'".$c["profile_path"]."')";
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+			logg("new cast person added {$c['name']}");
+		}
 	}
 }
 function addedit($tmdb, $tmdb_id, $list) {
@@ -135,11 +140,13 @@ function addedit($tmdb, $tmdb_id, $list) {
 	
 	$query = "DELETE from trailers where tmdb_id = ".$tmdb_id."";	
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
-	foreach($trailers['youtube'] as $t){
-		$t['name'] = preg_replace("/'/", "\\'", $t['name']);
-		$t['name'] = preg_replace("/\"/", "\\\"", $t['name']);
-		$query = "INSERT INTO trailers (tmdb_id,type,name,size,source)VALUES (".$tmdb_id.",'youtube','".$t["name"]."','".$t["size"]."','".$t["source"]."')";	
-		$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+	if (count($trailers["youtube"]) > 0) {
+		foreach($trailers['youtube'] as $t){
+			$t['name'] = preg_replace("/'/", "\\'", $t['name']);
+			$t['name'] = preg_replace("/\"/", "\\\"", $t['name']);
+			$query = "INSERT INTO trailers (tmdb_id,type,name,size,source)VALUES (".$tmdb_id.",'youtube','".$t["name"]."','".$t["size"]."','".$t["source"]."')";	
+			$result = mysql_query($query) or die('Query failed: ' . mysql_error());
+		}
 	}
 	updateMovieGenres($movie["genres"], $tmdb_id);
 	
@@ -150,7 +157,7 @@ function addedit($tmdb, $tmdb_id, $list) {
 	$my_tmdb['backdrop_path_w342'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "w342");
 	$my_tmdb['backdrop_path_w500'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "w500");
 	$my_tmdb['backdrop_path_original'] = $tmdb->getImageUrl($movie['backdrop_path'], 'poster', "original");
-	$title = mysql_escape_string(utf8_decode($movie['title']));
+	$title = mysql_real_escape_string(utf8_decode($movie['title']));
 	$url = sanitize($title) . "-" .$tmdb_id;
 	$query = "SELECT id from movies where tmdb_id = ".$tmdb_id."";	
 	$result = mysql_query($query) or die('Query failed: ' . mysql_error());
@@ -191,8 +198,8 @@ function addedit($tmdb, $tmdb_id, $list) {
 		'".$my_tmdb['backdrop_path_original']."', 
 		'".$tmdb_id."',
 		'".$movie['imdb_id']."',
-		'".mysql_escape_string(utf8_decode($movie['original_title']))."' ,
-		'".mysql_escape_string(utf8_decode($movie['overview']))."',
+		'".mysql_real_escape_string(utf8_decode($movie['original_title']))."' ,
+		'".mysql_real_escape_string(utf8_decode($movie['overview']))."',
 		'".$movie['homepage']."' ,
 		'".$movie['release_date']."',
 		'".$movie['runtime']."',
@@ -225,8 +232,8 @@ function addedit($tmdb, $tmdb_id, $list) {
 		backdrop_path_original = '".$my_tmdb['backdrop_path_original']."', 
 		tmdb_id = '".$tmdb_id."',
 		imdb_id = '".$movie['imdb_id']."',
-		original_title = '".mysql_escape_string(utf8_decode($movie['original_title']))."' ,
-		overview = '".mysql_escape_string(utf8_decode($movie['overview']))."',
+		original_title = '".mysql_real_escape_string(html_entity_decode($movie['original_title']))."' ,
+		overview = '".mysql_real_escape_string(utf8_decode($movie['overview']))."',
 		homepage = '".$movie['homepage']."' ,
 		release_date = '".$movie['release_date']."',
 		runtime = '".$movie['runtime']."',

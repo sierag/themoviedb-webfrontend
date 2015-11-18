@@ -52,7 +52,7 @@ $tmdb = new TMDb(TMDB_APIKEY);
 					$i=0;
 					while ($row = mysql_fetch_assoc($result)) {
 						$query = "
-						UPDATE `sierag1`.`movies` 
+						UPDATE `flamestr`.`movies` 
 						SET
 						url = '".sanitize($row['title'] . "-" . $row['tmdb_id'])."'
 						WHERE id = '".$row['id']."'";
